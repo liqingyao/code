@@ -59,9 +59,9 @@ Tips：
 
 - **项目驱动 - [Trello](https://trello.com/)**
 
-  项目驱动任务的特征是一上手可能没有非常清晰的脉络，可能涉及到许多未知的知识点，需要在行进中学习；或者项目提出的任务比较分散；在跟进中遇到许多突发问题等，同时也常常是工作中接受任务时的情况。可以参考 GCD (Get Things Done Model)来管理任务清单，对应的软件有许多，包括 doit.im 等等。我选择了知乎中提到的 Trello，简单直接。
+  项目驱动任务的特征是一上手可能没有非常清晰的脉络，可能涉及到许多未知的知识点，需要在行进中学习；或者项目提出的任务比较分散；在跟进中遇到许多突发问题等，同时也常常是工作中接受任务时的情况。可以参考下图 GCD 模型 (Get Things Done Model) 来管理任务清单，对应的软件有许多，包括 doit.im 等等。我选择了知乎中提到的 Trello，简单直接。
 
-  ![GTDcanonical]("{{ site.url }}/{{ site.baseurl }}/images/GTDcanonical.png" "Get Things Done Model")
+  ![GTDcanonical]({{ site.url }}/images/GTDcanonical.png)
 
 **2. 资料收集 - Pocket / 收藏夹 / Evernote**
 
