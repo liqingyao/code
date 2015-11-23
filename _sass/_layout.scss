@@ -278,11 +278,19 @@
     -moz-transition: all .2s ease-in;
   }
 
-  a:hover i.fa-facebook {
+  a:hover i.fa-github {
     background-color: #3A5897;
     color: #fff;
   }
-  a:hover i.fa-twitter {
+  a:hover i.fa-weibo {
+    background-color: #00ABEC;
+    color: #fff;
+  }
+  a:hover i.fa-linkedin {
+    background-color: #3A5897;
+    color: #fff;
+  }
+  a:hover i.fa-envelope-o {
     background-color: #00ABEC;
     color: #fff;
   }
