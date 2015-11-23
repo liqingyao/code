@@ -1,14 +1,49 @@
-# Jekyll-Pithy
+# Zetsu
 
-Jekyll-Pithy is a theme for Jekyll. Here is [my blog](http://wenva.github.io) which use this theme.
+> **Zetsu** - is a clean theme for Jekyll :smirk:
 
-![image](https://raw.githubusercontent.com/smallmuou/Jekyll-Pithy/master/images/Jekyll-Pithy.png)
+> :warning:
+  This theme requires ruby and rubygems installed
 
-### Usage
-* Clone it.
-* cd Jekyll-Pithy, and Run "jekyll serve"(You must install [jekyll](http://jekyllrb.com/) first)
-* Open web browser and enter "http://127.0.0.1:4000/", you can see the web page like snapshot above.
-* If you want to host you blog on Github Page, you can follow the steps provide by Github.
+* [x] Clean layout
+* [x] Resposive layout
+* [x] Preprocessor SASS
+* [x] CSS minified
+* [x] HTML minified
+* [x] Pagination
+* [x] Syntax highlight
+* [x] Author config
+* [x] Social links
+* [x] Share posts
+* [x] Comments with Disqus
 
-### License
-The code follows MIT License.
+---
+
+### Start in 4 steps
+
+1. Download or clone repo `git clone git@github.com:nandomoreirame/zetsu.git`
+2. Enter the folder: `cd zetsu/`
+3. Install Ruby gems: `bundle install`
+4. Start Jekyll server: `jekyll serve`
+
+Access, [localhost:4000/zetsu](http://localhost:4000/zetsu/)
+
+### Deploy in Github pages in 2 steps
+
+1. Change the variables `GITHUB_REPONAME` and `GITHUB_REPO_BRANCH` in `Rakefile`
+2. Run `rake site:publish` for build and publish on Github
+
+[Demo](http://nandomoreira.me/zetsu/)
+
+![Zetsu - free Jekyll theme](/screenshot.png)
+
+---
+
+### Copyright and license
+
+It is under [the MIT license](/LICENSE).
+
+> :warning:
+  Please remove metas `<meta name="robots" content="noindex">` and `<meta name="googlebot" content="noindex">` in `_layouts/default.html`
+
+Enjoy :yum:

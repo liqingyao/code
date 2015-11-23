@@ -6,126 +6,203 @@
 </description>
     <link>http://code.liqingyao.com/</link>
     <atom:link href="http://code.liqingyao.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 13 Nov 2015 14:08:09 -0800</pubDate>
-    <lastBuildDate>Fri, 13 Nov 2015 14:08:09 -0800</lastBuildDate>
-    <generator>Jekyll v3.0.0</generator>
+    <pubDate>Mon, 23 Nov 2015 21:08:20 +0800</pubDate>
+    <lastBuildDate>Mon, 23 Nov 2015 21:08:20 +0800</lastBuildDate>
+    <generator>Jekyll v3.0.1</generator>
     
       <item>
-        <title>Windows下安装与使用GCC编译器</title>
-        <description>&lt;h3 id=&quot;gcc&quot;&gt;&lt;strong&gt;什么是GCC?&lt;/strong&gt;&lt;/h3&gt;
-&lt;p&gt;我们在Windows系统下习惯使用诸如Windows Visual Stdio图形化IDE工具来编辑和编译代码，但在Unix/Linux系统下如何编译C++代码呢？答案是GCC(GUN Compiler Collection)。GCC源于一场自由软件计划，最初只能在不同操作系统上处理C语言，经过快速扩张后目前也支持C++/Objective-C/Java/Ada/Pascal/Fortran等多种语言的编译。&lt;/p&gt;
+        <title>Welcome to Jekyll!</title>
+        <description>&lt;p&gt;You’ll find this post in your &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
 
-&lt;h3 id=&quot;gcc-1&quot;&gt;&lt;strong&gt;安装GCC&lt;/strong&gt;&lt;/h3&gt;
-&lt;ol&gt;
-  &lt;li&gt;下载安装MinGW
-MinGW(Minimalist GNU on Windows)是Windows系统下GNU工具套装，使用MinGW来安装GCC。
-&lt;a href=&quot;http://sourceforge.net/projects/mingw/files/&quot;&gt;点击下载&lt;/a&gt;，并安装到C盘根目录。&lt;/li&gt;
-  &lt;li&gt;配置Windows环境变量
-找到环境变量：控制面板-&amp;gt;系统-&amp;gt;高级系统设置-&amp;gt;高级-&amp;gt;环境变量；
-在系统变量中选择&lt;code&gt;Path&lt;/code&gt;，并在变量值中添加&lt;code&gt;C:\MinGW\bin&lt;/code&gt;
-在系统变量中新建&lt;code&gt;LIBRARY_PATH&lt;/code&gt;，变量值是&lt;code&gt;C:\MinGW\lib&lt;/code&gt;
-在系统变量中新建&lt;code&gt;C_INCLUDE_PATH&lt;/code&gt;，变量值是&lt;code&gt;C:\MinGW\include&lt;/code&gt;
-以上操作分别配置了标准库和头文件的存放路径。&lt;/li&gt;
-  &lt;li&gt;使用MinGW安装GCC
-运行MinGW,在Basic Setup中选择mingw32-gcc-g++
-选择Installation-&amp;gt;Apply Changes
-等待GCC相关环境安装完毕。&lt;/li&gt;
-  &lt;li&gt;以上步骤完成后，在cmd敲入命令
-&lt;code&gt;gcc --version&lt;/code&gt;
-如果安装成功，会显示gcc版本号。&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;To add new posts, simply add a file in the &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory that follows the convention &lt;code class=&quot;highlighter-rouge&quot;&gt;YYYY-MM-DD-name-of-post.ext&lt;/code&gt; and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
 
-&lt;h3 id=&quot;gcc-2&quot;&gt;&lt;strong&gt;使用GCC&lt;/strong&gt;&lt;/h3&gt;
-&lt;ol&gt;
-  &lt;li&gt;创建GCC工作目录
-&lt;code&gt;mkdir CPP&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;前往工作目录
-&lt;code&gt;cd CPP&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;选择一种文本编辑器（比如Windows自带的notepad）
-&lt;code&gt;notepad main.c&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;在自动弹出的文本编辑器中敲测试代码，保存&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;Jekyll also offers powerful support for code snippets:&lt;/p&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;kp&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;stdlib.h&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Hello World&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hi, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;Tom&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints &#39;Hi, Tom&#39; to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;!-- &lt;pre class=&quot;theme:github width-set:true width:450 lang:default decode:true &quot; &gt;include &amp;lt;stdio.h&amp;gt;
-include &amp;lt;stdlib.h&amp;gt;
-int main() {
-    printf(&quot;Hello World\n&quot;);
-    return(0);
-}&lt;/pre&gt; --&gt;
+&lt;p&gt;Check out the &lt;a href=&quot;http://jekyllrb.com&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://github.com/jekyll/jekyll-help&quot;&gt;Jekyll’s dedicated Help repository&lt;/a&gt;.&lt;/p&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;使用GCC编译main.c，输出HelloWorld可执行文件
-&lt;code&gt;gcc main.c -o HelloWorld&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;此时会报错“缺少libgcc_s_sjlj-1.dll文件”
-&lt;a href=&quot;http://www.dll-files.com/dllindex/dll-files.shtml?libgcc_s_sjlj-1&quot;&gt;点击下载&lt;/a&gt;32-bit版本，解压并放到C:\Windows\SysWOW64中&lt;/li&gt;
-  &lt;li&gt;重复步骤5，正常运行，此时可以看到工作目录下生成了HelloWorld.exe文件。最后在cmd中运行文件
-&lt;code&gt;HelloWorld.exe&lt;/code&gt;
-终于看到第一个测试输出“HelloWorld”，大功告成！&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;[参考资料]&lt;/p&gt;
-&lt;ol&gt;
-	&lt;li&gt;http://www.wikihow.com/Compile-a-C-Program-Using-the-GNU-Compiler-(GCC)&lt;/li&gt;
-	&lt;li&gt;http://blog.csdn.net/firefoxbug/article/details/6724876&lt;/li&gt;
-&lt;/ol&gt;
 </description>
-        <pubDate>Wed, 22 Apr 2015 03:21:32 -0700</pubDate>
-        <link>http://code.liqingyao.com/%E5%85%B6%E4%BB%96/2015/04/22/windows-install-gcc.html</link>
-        <guid isPermaLink="true">http://code.liqingyao.com/%E5%85%B6%E4%BB%96/2015/04/22/windows-install-gcc.html</guid>
+        <pubDate>Sat, 08 Aug 2015 11:00:08 +0800</pubDate>
+        <link>http://code.liqingyao.com/jekyll/update/2015/08/08/welcome-to-jekyll.html</link>
+        <guid isPermaLink="true">http://code.liqingyao.com/jekyll/update/2015/08/08/welcome-to-jekyll.html</guid>
         
         
-        <category>其他</category>
+        <category>jekyll</category>
+        
+        <category>update</category>
         
       </item>
     
       <item>
-        <title>如何成为更好的 iOS 开发者</title>
-        <description>&lt;p&gt;在 Boss 的敦促和项目进度的高压下猛学了两个多月 iOS 开发，从 Objective-C 小白到上线第一个应用，再到反思技术改进应用。从始至终都是自学，回头看看确实走了不少弯路。在这做些小总结，也希望能给读者带来些许帮助。&lt;!--more--&gt;&lt;/p&gt;
+        <title>Lorem ipsum dolor sit amet</title>
+        <description>&lt;p&gt;&lt;strong&gt;Pellentesque habitant morbi tristique&lt;/strong&gt; senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. &lt;em&gt;Aenean ultricies mi vitae est.&lt;/em&gt; Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, &lt;code&gt;commodo vitae&lt;/code&gt;, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. &lt;a href=&quot;#&quot;&gt;Donec non enim&lt;/a&gt; in turpis pulvinar facilisis. Ut felis.&lt;/p&gt;
 
-&lt;p&gt;零基础自学方法论：先概览后细节，先容易后复杂。参考资料和步骤如下：&lt;/p&gt;
+&lt;h1&gt;Header Level 1&lt;/h1&gt;
+&lt;h2&gt;Header Level 2&lt;/h2&gt;
+
+&lt;p&gt;Unordered list&lt;/p&gt;
 &lt;ol&gt;
-	&lt;li&gt;&lt;a href=&quot;http://rypress.com/tutorials/objective-c/index.html&quot;&gt;Ry’s Objective-C Tutorial&lt;/a&gt; （图形化教学，深入浅出）&lt;/li&gt;
-	&lt;li&gt;&lt;a href=&quot;http://v.163.com/special/opencourse/iphonekaifa.html&quot;&gt;iPhone 开发公开课：CS193P&lt;/a&gt; （高富帅轮番上阵，不学也难）&lt;/li&gt;
-	&lt;li&gt;&lt;a href=&quot;http://www.raywenderlich.com/&quot;&gt;Ray Wenderlich Tutorial&lt;/a&gt; 或者 &lt;a href=&quot;http://www.techotopia.com/index.php/Image:Ios_7_app_development_essentials.png&quot;&gt;Techotopia Tutorial&lt;/a&gt;  或者 &lt;a href=&quot;http://www.appcoda.com/tutorials/&quot;&gt;AppCoda Tutorial&lt;/a&gt;（入门基础控件/TableView/ViewController 等用法的好教程，丰富的示例，三者可以结合使用）&lt;/li&gt;
-	&lt;li&gt;&lt;a href=&quot;https://developer.apple.com/library/ios/navigation/&quot;&gt;iOS Developer Library&lt;/a&gt;（万能的百科全书，初学者最好有以上基础后再参考）&lt;/li&gt;
-	&lt;li&gt;&lt;a href=&quot;http://stackoverflow.com/&quot;&gt;StackOverflow&lt;/a&gt;（高质量论坛，或者直接 google 搜索关键词：[problem] + ios / [problem] + iPhone SDK 找 StackOverflow 的链接）&lt;/li&gt;
+  &lt;li&gt;Lorem ipsum dolor sit amet, consectetuer adipiscing elit.&lt;/li&gt;
+  &lt;li&gt;Aliquam tincidunt mauris eu risus.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;我就是按照以上思路来自学的。接下来需要掌握以下：&lt;/p&gt;
-&lt;ul&gt;
-	&lt;li&gt;&lt;a href=&quot;http://www.raywenderlich.com/46988/ios-design-patterns&quot;&gt;iOS Design Pattern&lt;/a&gt;（Cocoa 核心架构：MVC）&lt;/li&gt;
-	&lt;li&gt;&lt;a href=&quot;https://www.codefellows.org/blog/everything-a-competent-ios-developer-needs-to-know&quot;&gt;Everything a Competent iOS Developer Needs to Know&lt;/a&gt;（iOS 开发树形结构）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;第一条是 iOS App 架构指南针，深入理解 Design Pattern 是写出结构清晰、维护方便、可重用性高的代码的核心，也是每一个 iOS 开发者必须知道的事。&lt;/p&gt;
 
-&lt;p&gt;第二条的 iOS 树形图囊括了一个高素质 iOS 开发者需要必备的知识储备。&lt;/p&gt;
+&lt;blockquote&gt;&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus magna. Cras in mi at felis aliquet congue. Ut a est eget ligula molestie gravida. Curabitur massa. Donec eleifend, libero at sagittis mollis, tellus est malesuada tellus, at luctus turpis elit sit amet quam. Vivamus pretium ornare est.&lt;/p&gt;&lt;/blockquote&gt;
 
-&lt;p&gt;当你对以上都了然于心，也有了一些实战经验后，比如开发过一两个完整的 App，是不是觉得代码的堆砌造成很难维护和修改，想学更多又不知从何下手。我现在也正经历这个阶段。我找了一些方法，与君共勉。&lt;/p&gt;
+&lt;h3&gt;Header Level 3&lt;/h3&gt;
+
+&lt;p&gt;Ordered list&lt;/p&gt;
 &lt;ul&gt;
-	&lt;li&gt;阅读大量高质量开源代码（from Github），也让他人来阅读你的代码&lt;/li&gt;
-	&lt;li&gt;宁愿多花时间来思考架构和模块的规划，也不要立刻埋头码字&lt;/li&gt;
-	&lt;li&gt;为代码写注释，组织好代码结构&lt;/li&gt;
-	&lt;li&gt;不断的练习（Do you know the rule of 10,000? It says that if you want to be world-class in any field you have to invest 10,000 hours in total.）&lt;/li&gt;
-	&lt;li&gt;阅读 iOS 牛人博客，关注苹果发布会等新动态，同时关心一切互联网、科技新闻，保持一颗年轻的心。&lt;/li&gt;
+  &lt;li&gt;Lorem ipsum dolor sit amet, consectetuer adipiscing elit.&lt;/li&gt;
+  &lt;li&gt;Aliquam tincidunt mauris eu risus.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;[参考资料]&lt;/p&gt;
-&lt;ol&gt;
-	&lt;li&gt;http://www.wikihow.com/Improve-your-Skills-as-a-Programmer&lt;/li&gt;
-	&lt;li&gt;http://www.appdesignvault.com/betterdeveloper/&lt;/li&gt;
-	&lt;li&gt;http://www.cocoanetics.com/2010/07/how-to-become-great-at-ios-development/&lt;/li&gt;
-&lt;/ol&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-css&quot; data-lang=&quot;css&quot;&gt;&lt;span class=&quot;nf&quot;&gt;#header&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;h1&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nl&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;block&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;nl&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;300px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;nl&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;80px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h4&gt;Header Level 4&lt;/h4&gt;
+&lt;h5&gt;Header Level 5&lt;/h5&gt;
+&lt;h6&gt;Header Level 6&lt;/h6&gt;
 </description>
-        <pubDate>Thu, 13 Nov 2014 10:56:32 -0800</pubDate>
-        <link>http://code.liqingyao.com/ios/2014/11/13/how-to-become-better-ios-developer.html</link>
-        <guid isPermaLink="true">http://code.liqingyao.com/ios/2014/11/13/how-to-become-better-ios-developer.html</guid>
+        <pubDate>Fri, 07 Aug 2015 11:00:08 +0800</pubDate>
+        <link>http://code.liqingyao.com/lorem/2015/08/07/lorem.html</link>
+        <guid isPermaLink="true">http://code.liqingyao.com/lorem/2015/08/07/lorem.html</guid>
         
         
-        <category>iOS</category>
+        <category>Lorem</category>
+        
+      </item>
+    
+      <item>
+        <title>Lorem ipsum dolor sit amet, consectetuer adipiscing elit</title>
+        <description>&lt;p&gt;Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.&lt;/p&gt;
+
+&lt;p&gt;Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi.&lt;/p&gt;
+
+&lt;p&gt;Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue.&lt;/p&gt;
+
+&lt;p&gt;Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus.&lt;/p&gt;
+
+&lt;p&gt;Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, quis gravida magna mi a libero.&lt;/p&gt;
+
+&lt;p&gt;Fusce vulputate eleifend sapien. Vestibulum purus quam, scelerisque ut, mollis sed, nonummy id, metus. Nullam accumsan lorem in dui. Cras ultricies mi eu turpis hendrerit fringilla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In ac dui quis mi consectetuer lacinia.&lt;/p&gt;
+
+&lt;p&gt;Nam pretium turpis et arcu. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum. Sed aliquam ultrices mauris. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Praesent adipiscing. Phasellus ullamcorper ipsum rutrum nunc. Nunc nonummy metus.&lt;/p&gt;
+
+&lt;p&gt;Vestibulum volutpat pretium libero. Cras id dui. Aenean ut eros et nisl sagittis vestibulum. Nullam nulla eros, ultricies sit amet, nonummy id, imperdiet feugiat, pede. Sed lectus. Donec mollis hendrerit risus. Phasellus nec sem in justo pellentesque facilisis. Etiam imperdiet imperdiet orci.&lt;/p&gt;
+
+&lt;p&gt;Nunc nec neque. Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisi. Curabitur ligula sapien, tincidunt non, euismod vitae, posuere imperdiet, leo. Maecenas malesuada. Praesent congue erat at massa. Sed cursus turpis vitae tortor. Donec posuere vulputate arcu. Phasellus accumsan cursus velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed aliquam, nisi quis porttitor congue, elit erat euismod orci.&lt;/p&gt;
+</description>
+        <pubDate>Fri, 07 Aug 2015 11:00:08 +0800</pubDate>
+        <link>http://code.liqingyao.com/lorem/2015/08/07/lorem-ipsum-dolor.html</link>
+        <guid isPermaLink="true">http://code.liqingyao.com/lorem/2015/08/07/lorem-ipsum-dolor.html</guid>
+        
+        
+        <category>Lorem</category>
+        
+      </item>
+    
+      <item>
+        <title>The quick, brown fox jumps over a lazy dog</title>
+        <description>&lt;p&gt;The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax quiz prog. Junk MTV quiz graced by fox whelps. Bawds jog, flick quartz, vex nymphs. Waltz, bad nymph, for quick jigs vex! Fox nymphs grab quick-jived waltz.&lt;/p&gt;
+
+&lt;p&gt;Brick quiz whangs jumpy veldt fox. Bright vixens jump; dozy fowl quack. Quick wafting zephyrs vex bold Jim. Quick zephyrs blow, vexing daft Jim. Sex-charged fop blew my junk TV quiz. How quickly daft jumping zebras vex.&lt;/p&gt;
+
+&lt;p&gt;Two driven jocks help fax my big quiz. Quick, Baz, get my woven flax jodhpurs! “Now fax quiz Jack! “ my brave ghost pled. Five quacking zephyrs jolt my wax bed. Flummoxed by job, kvetching W. zaps Iraq. Cozy sphinx waves quart jug of bad milk.&lt;/p&gt;
+
+&lt;p&gt;A very bad quack might jinx zippy fowls. Few quips galvanized the mock jury box. Quick brown dogs jump over the lazy fox. The jay, pig, fox, zebra, and my wolves quack! Blowzy red vixens fight for a quick jump.&lt;/p&gt;
+
+&lt;p&gt;Joaquin Phoenix was gazed by MTV for luck. A wizard’s job is to vex chumps quickly in fog. Watch “Jeopardy! “, Alex Trebek’s fun TV quiz game. Woven silk pyjamas exchanged for blue quartz. Brawny gods just flocked up to quiz and vex him.&lt;/p&gt;
+
+&lt;p&gt;Adjusting quiver and bow, Zompyc[1] killed the fox. My faxed joke won a pager in the cable TV quiz show. Amazingly few discotheques provide jukeboxes. My girl wove six dozen plaid jackets before she quit. Six big devils from Japan quickly forgot how to waltz.&lt;/p&gt;
+
+&lt;p&gt;Big July earthquakes confound zany experimental vow. Foxy parsons quiz and cajole the lovably dim wiki-girl. Have a pick: twenty six letters - no forcing a jumbled quiz! Crazy Fredericka bought many very exquisite opal jewels.&lt;/p&gt;
+
+&lt;p&gt;Sixty zippers were quickly picked from the woven jute bag. A quick movement of the enemy will jeopardize six gunboats. All questions asked by five watch experts amazed the judge. Jack quietly moved up front and seized the big ball of wax.&lt;/p&gt;
+
+&lt;p&gt;The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax quiz prog. Junk MTV quiz graced by fox whelps. Bawds jog, flick quartz, vex nymphs. Waltz, bad nymph, for quick jigs vex! Fox nymphs grab quick-jived waltz. Brick quiz whangs jumpy veldt fox.&lt;/p&gt;
+
+&lt;p&gt;Bright vixens jump; dozy fowl quack. Quick wafting zephyrs vex bold Jim. Quick zephyrs blow, vexing daft Jim. Sex-charged fop blew my junk TV quiz. How quickly daft jumping zebras vex. Two driven jocks help fax my big quiz. Quick, Baz, get my woven flax jodhpurs!&lt;/p&gt;
+
+&lt;p&gt;“Now fax quiz Jack! “ my brave ghost pled. Five quacking zephyrs jolt my wax bed. Flummoxed by job, kvetching W. zaps Iraq. Cozy sphinx waves quart jug of bad milk. A very bad quack might jinx zippy fowls. Few quips galvanized the mock jury box. Quick brown dogs jump over the lazy fox. The jay, pig, fox, zebra, and my wolves quack! Blowzy red vixens fight for a quick jump. Joaquin Phoenix was gazed by MTV&lt;/p&gt;
+</description>
+        <pubDate>Thu, 06 Aug 2015 11:00:08 +0800</pubDate>
+        <link>http://code.liqingyao.com/lorem/2015/08/06/the-quick-brown-fox.html</link>
+        <guid isPermaLink="true">http://code.liqingyao.com/lorem/2015/08/06/the-quick-brown-fox.html</guid>
+        
+        
+        <category>Lorem</category>
+        
+      </item>
+    
+      <item>
+        <title>A wonderful serenity has taken possession of my entire soul</title>
+        <description>&lt;p&gt;A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine.&lt;/p&gt;
+
+&lt;p&gt;I am so happy, my dear friend, so absorbed in the exquisite sense of mere tranquil existence, that I neglect my talents.&lt;/p&gt;
+
+&lt;p&gt;I should be incapable of drawing a single stroke at the present moment; and yet I feel that I never was a greater artist than now.&lt;/p&gt;
+
+&lt;p&gt;When, while the lovely valley teems with vapour around me, and the meridian sun strikes the upper surface of the impenetrable foliage of my trees, and but a few stray gleams steal into the inner sanctuary, I throw myself down among the tall grass by the trickling stream; and, as I lie close to the earth, a thousand unknown plants are noticed by me: when I hear the buzz of the little world among the stalks, and grow familiar with the countless indescribable forms of the insects and flies, then I feel the presence of the Almighty, who formed us in his own image, and the breath of that universal love which bears and sustains us, as it floats around us in an eternity of bliss; and then, my friend, when darkness overspreads my eyes, and heaven and earth seem to dwell in my soul and absorb its power, like the form of a beloved mistress, then I often think with longing, Oh, would I could describe these conceptions, could impress upon paper all that is living so full and warm within me, that it might be the mirror of my soul, as my soul is the mirror of the infinite God!&lt;/p&gt;
+
+&lt;p&gt;O my friend – but it is too much for my strength – I sink under the weight of the splendour of these visions!&lt;/p&gt;
+
+&lt;p&gt;A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.&lt;/p&gt;
+
+&lt;p&gt;I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine.&lt;/p&gt;
+
+&lt;p&gt;I am so happy, my dear friend, so absorbed in the exquisite sense of mere tranquil existence, that I neglect my talents.&lt;/p&gt;
+
+&lt;p&gt;I should be incapable of drawing a single stroke at the present moment; and yet I feel that I never was a greater artist than now.&lt;/p&gt;
+
+&lt;p&gt;When, while the lovely valley teems with vapour around me, and the meridian sun strikes the upper surface of the impenetrable foliage of my trees, and but a few stray gleams steal into the inner sanctuary, I throw myself down among the tall grass by the trickling stream; and, as I lie close to the earth, a thousand unknown plants are noticed by me: when I hear the buzz of the little world among the stalks, and grow familiar with the countless indescribable forms of the insects and&lt;/p&gt;
+</description>
+        <pubDate>Wed, 05 Aug 2015 11:00:08 +0800</pubDate>
+        <link>http://code.liqingyao.com/lorem/2015/08/05/a-wonderful-serenity-has-taken.html</link>
+        <guid isPermaLink="true">http://code.liqingyao.com/lorem/2015/08/05/a-wonderful-serenity-has-taken.html</guid>
+        
+        
+        <category>Lorem</category>
+        
+      </item>
+    
+      <item>
+        <title>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</title>
+        <description>&lt;p&gt;Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.&lt;/p&gt;
+
+&lt;p&gt;A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.&lt;/p&gt;
+
+&lt;p&gt;Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.&lt;/p&gt;
+
+&lt;p&gt;The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen. She packed her seven versalia, put her initial into the belt and made herself on the way.&lt;/p&gt;
+
+&lt;p&gt;When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane.&lt;/p&gt;
+
+&lt;p&gt;Pityful a rethoric question ran over her cheek, then she continued her way. On her way she met a copy.&lt;/p&gt;
+
+&lt;p&gt;The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word “and” and the Little Blind Text should turn around and return to its own, safe country.&lt;/p&gt;
+
+&lt;p&gt;But nothing the copy said could convince her and so it didn’t take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where they abused her for their projects again and again. And if she hasn’t been rewritten, then they are still using her.&lt;/p&gt;
+
+&lt;p&gt;Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia.&lt;/p&gt;
+
+&lt;p&gt;It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.&lt;/p&gt;
+
+&lt;p&gt;The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen. She packed her seven versalia, put her initial into the belt and made herself on the way. When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline&lt;/p&gt;
+</description>
+        <pubDate>Tue, 04 Aug 2015 11:00:08 +0800</pubDate>
+        <link>http://code.liqingyao.com/lorem/2015/08/04/far-far-away.html</link>
+        <guid isPermaLink="true">http://code.liqingyao.com/lorem/2015/08/04/far-far-away.html</guid>
+        
+        
+        <category>Lorem</category>
         
       </item>
     

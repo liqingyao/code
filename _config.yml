@@ -1,15 +1,29 @@
 # Site settings
 title: Li Qingyao
-motto: 简单，可信赖
 email: qingyao.li@yahoo.com
-description: > # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
-baseurl: "" # the subpath of your site, e.g. /blog/
-url: "http://code.liqingyao.com" # the base hostname & protocol for your site
-twitter_username: jekyllrb
-github_username:  liqingyao
+description: Hello World
+baseurl: ""
+url: "http://code.liqingyao.com"
+
+author:
+  name     : 'Li Qingyao'
+  email    : qingyao.li@yahoo.com
+  url      : http://code.liqingyao.com
+  facebook : http://facebook.com/fernando.dev
+  twitter  : http://twitter.com/nandomoreirame
+
+github: https://github.com/liqingyao
+disqus_shortname: "fernandomoreira"
+google_analytics: UA-52446115-1
+
+paginate: 2
+comments: true
+paginate_path: "/page/:num"
+
+sass:
+  style: :compressed
+  sass_dir: _sass
 
 # Build settings
-markdown: kramdown
+markdown  : kramdown
+permalink : /:title/
