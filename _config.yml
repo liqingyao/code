@@ -4,6 +4,7 @@ email: qingyao.li@yahoo.com
 description: Hello World
 baseurl: ""
 url: "http://code.liqingyao.com"
+masterurl: "http://liqingyao.com"
 
 author:
   name     : 'Li Qingyao'
