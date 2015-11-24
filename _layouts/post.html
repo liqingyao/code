@@ -7,7 +7,7 @@ slug: single
     <h1 class="post-title">{{ page.title }}</h1>
     <span class="post-meta">
       <time class="post-date" datetime="{{ page.date | date:"%Y-%m-%d" }}">{{ page.date | date: "%b %-d, %Y" }}</time>
-      <span class="post-author">by {{ site.author.name }}</span>
+      <!-- <span class="post-author">by {{ site.author.name }}</span> -->
     </span>
   </header>
 
@@ -17,7 +17,7 @@ slug: single
 
     <aside class="share">
 
-      <span>Share this: </span>
+      <span>Share this to</span>
 
       <a href="http://twitter.com/share?text={{page.title}}&amp;url={{site.url}}{{ page.url }}&amp;hashtags=web,dev,blog,soudev&amp;via=nandomoreirame"
       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">

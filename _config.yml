@@ -10,16 +10,13 @@ author:
   email    : qingyao.li@yahoo.com
   url      : http://code.liqingyao.com
 
-  # facebook : http://facebook.com/fernando.dev
-  # twitter  : http://twitter.com/nandomoreirame
-
 github: https://github.com/liqingyao
 linkedin: https://www.linkedin.com/in/liqingyao
 weibo: http://weibo.com/leeleeannie
 disqus_shortname: "fernandomoreira"
 google_analytics: UA-52446115-1
 
-paginate: 3
+paginate: 9
 comments: true
 paginate_path: "/page/:num"
 
