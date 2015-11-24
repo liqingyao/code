@@ -4,7 +4,6 @@ email: qingyao.li@yahoo.com
 description: Hello World
 baseurl: ""
 url: "http://code.liqingyao.com"
-masterurl: "http://liqingyao.com"
 
 author:
   name     : 'Li Qingyao'
@@ -20,7 +19,7 @@ weibo: http://weibo.com/leeleeannie
 disqus_shortname: "fernandomoreira"
 google_analytics: UA-52446115-1
 
-paginate: 2
+paginate: 3
 comments: true
 paginate_path: "/page/:num"
 
