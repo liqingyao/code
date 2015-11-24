@@ -38,10 +38,10 @@
 //
 // Site header
 .header {
-  background: #292929 url(../images/cover.jpg) no-repeat 50% 0px;
-  @include background-size(cover);
+  background: #292929 url(../images/bg.jpg) no-repeat 50% 0px;
+  @include background-size(bg);
   border-bottom: 1px solid $gray-color-light;
-  border-top: 3px solid $primary-color;
+  //border-top: 3px solid $primary-color;
   min-height: 60px;
   position: relative;
   @extend %clearfix;
@@ -49,7 +49,7 @@
   margin-bottom: 30px;
 
   .overlay {
-    background: rgba(#000, .75);
+    background: rgba(#000, .0);
     z-index: 1;
     position: absolute;
     width: 100%;
@@ -148,7 +148,7 @@
   li.active a,
   li:hover a,
   li:focus a {
-    color: lighten($primary-color, 10%);
+    color: lighten($white-color, 10%);
     text-decoration: none;
   }
 }
