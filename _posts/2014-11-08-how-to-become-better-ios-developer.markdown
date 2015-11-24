@@ -3,6 +3,7 @@ layout: post
 title:  "如何成为更好的 iOS 开发者"
 date:   2014-11-13 18:56:32
 categories: iOS
+comments: true
 ---
 在 Boss 的敦促和项目进度的高压下猛学了两个多月 iOS 开发，从 Objective-C 小白到上线第一个应用，再到反思技术改进应用。从始至终都是自学，回头看看确实走了不少弯路。在这做些小总结，也希望能给读者带来些许帮助。<!--more-->
 

@@ -3,6 +3,7 @@ layout: post
 title:  "Windows下安装与使用GCC编译器"
 date:   2015-04-22 10:21:32
 categories: 其他
+comments: true
 ---
 ###**什么是GCC?**
 我们在Windows系统下习惯使用诸如Windows Visual Stdio图形化IDE工具来编辑和编译代码，但在Unix/Linux系统下如何编译C++代码呢？答案是GCC(GUN Compiler Collection)。GCC源于一场自由软件计划，最初只能在不同操作系统上处理C语言，经过快速扩张后目前也支持C++/Objective-C/Java/Ada/Pascal/Fortran等多种语言的编译。

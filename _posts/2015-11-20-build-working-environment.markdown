@@ -3,6 +3,7 @@ layout: post
 title:  "搭建工作环境"
 date:   2015-11-20 15:34:32
 categories: 其他
+comments: true
 ---
 
 十月中旬校招结束，确定了一桩大事后，放慢了拼命赶路的脚步，列了很多 TODO list，不过还得先从打造一个顺手的工作平台和学习环境开始。
