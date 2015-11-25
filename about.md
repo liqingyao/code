@@ -5,10 +5,15 @@ permalink: /about/
 slug: about
 ---
 
-This is a Jekyll theme. You can find out more information about customizing your theme Jekyll, as well as basic documentation Jekyll use in [jekyllrb.com](http://jekyllrb.com/).
+![lqyavatar]({{ site.url }}/images/lqyavatar.png)
 
-You can find the source code for this theme: [github.com/nandomoreirame/zetsu]({{ site.github }})
+成长于上海，毕业于同济。
 
-You can find the source code in Jekyll [github.com/jekyll/jekyll](https://github.com/jekyll/jekyll)
+曾从事音频、图像处理算法研究，现潜心修行iOS开发。
 
-Theme developed by: [{{ site.author.name }}]({{ site.author.url }})
+喜欢捯饬新鲜玩意儿，对事物的原理有强烈的分析癖好。
+
+偶尔做个冷眼旁观者，洞察世间冷暖社会百态。
+
+爱憎分明，外圆内方。
+和<a href="http://wyudong.com" target="_blank">这位仁兄</a>相守相知。
