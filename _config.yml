@@ -16,6 +16,7 @@ weibo: http://weibo.com/leeleeannie
 disqus_shortname: "codeliqingyao"
 google_analytics: UA-52446115-1
 
+gems: [jekyll-paginate]
 paginate: 9
 comments: true
 paginate_path: "/page/:num"
