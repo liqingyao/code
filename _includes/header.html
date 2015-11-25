@@ -17,11 +17,10 @@
 
         <ul class="nav">
           {% for page in site.pages %}
-            {% if page.title and page.title != 'Home' %}
+            {% if page.title %}
             <li><a href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a></li>
             {% endif %}
           {% endfor %}
-          <li><a href="{{ site.url }}" target="_blank">Home</a></li>
         </ul>
       </nav>
     </div>
