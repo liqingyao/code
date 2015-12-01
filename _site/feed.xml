@@ -5,9 +5,208 @@
     <description>Hello World</description>
     <link>http://code.liqingyao.com/</link>
     <atom:link href="http://code.liqingyao.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 30 Nov 2015 15:57:40 +0800</pubDate>
-    <lastBuildDate>Mon, 30 Nov 2015 15:57:40 +0800</lastBuildDate>
+    <pubDate>Tue, 01 Dec 2015 21:54:05 +0800</pubDate>
+    <lastBuildDate>Tue, 01 Dec 2015 21:54:05 +0800</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
+    
+      <item>
+        <title>Jekyll 个人静态博客建站及优化</title>
+        <description>&lt;p&gt;写博客要追溯到高中，用百度博客记录生活和想法，坚持了四年多，直到大二时被盗号，申诉多次没有追回帐号，就没再写过。研二重整旗鼓，买了域名和服务，在 WordPress 上搭了个人博客，想模仿牛人写些技术博客。最近在面试时，面试官提到了我的博客，建议我用 GitHub 和 Jekyll 建站试试，于是我就开始捯饬着搬迁和建立工作。&lt;/p&gt;
+
+&lt;p&gt;发现自己经历了&lt;a href=&quot;http://www.ruanyifeng.com/blog/2012/08/blogging_with_jekyll.html&quot;&gt;阮一峰&lt;/a&gt;说的写博客的三个阶段:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;第一阶段，刚接触 Blog，觉得很新鲜，试着选择一个免费空间来写。&lt;/p&gt;
+
+  &lt;p&gt;第二阶段，发现免费空间限制太多，就自己购买域名和空间，搭建独立博客。&lt;/p&gt;
+
+  &lt;p&gt;第三阶段，觉得独立博客的管理太麻烦，最好在保留控制权的前提下，让别人来管，自己只负责写文章。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;从零开始搭博客挺好玩，也可以趁此机会学一些前端。按照&lt;a href=&quot;http://beiyuu.com/github-pages/&quot;&gt;教程&lt;/a&gt;一步步走完后，博客初见规模。要做到更好还要考虑性能优化、网站分析和其他功能，有很多可以挖掘的，完全看个人喜好和发挥。当然最重要还是内容。弄完后才知道一篇华丽丽的牛人博客，其实很花心思！相关的建站教程很多，我就结合自己的建站过程整理下思路，有兴趣的也可以直接在 Github 上 fork。&lt;/p&gt;
+
+&lt;h3 id=&quot;section&quot;&gt;&lt;strong&gt;确定环境和架构&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;1. &lt;a href=&quot;https://pages.github.com/&quot;&gt;GitHub Pages&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;用 GitHub 托管博客的好处是方便查看和共享、轻量级、干净简单、还可以绑定域名。配合 Jekyll / Hexo / Ghost 等博客系统站内生成网页，直接在本地 repo 更新、发布博客，可以更专注于码字。&lt;/p&gt;
+
+&lt;p&gt;GitHub 支持&lt;a href=&quot;https://help.github.com/articles/user-organization-and-project-pages/&quot;&gt;两种形式的 Pages&lt;/a&gt;：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;User &amp;amp; Organization Pages&lt;/p&gt;
+
+    &lt;p&gt;是为每个用户准备的主页，通过建立名为 &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;username&amp;gt;.github.io&lt;/code&gt; 的 repo 激活，建立后可通过 &lt;code class=&quot;highlighter-rouge&quot;&gt;http(s)://&amp;lt;username&amp;gt;.github.io&lt;/code&gt; 访问；&lt;code class=&quot;highlighter-rouge&quot;&gt;username&lt;/code&gt; 是 Github 用户名，每个用户只能建一个，内容在 &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; 分支修改和提交。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Project Pages&lt;/p&gt;
+
+    &lt;p&gt;Project Pages 是为 Github 项目准备的描述页面，博客也可使用这种形式配置模板、发布内容；用户可以建多个 Project Pages，新建 &lt;code class=&quot;highlighter-rouge&quot;&gt;gh-pages&lt;/code&gt; 分支并在里面修改和提交，可通过 &lt;code class=&quot;highlighter-rouge&quot;&gt;http(s)://&amp;lt;username&amp;gt;.github.io/&amp;lt;projectname&amp;gt;&lt;/code&gt; 访问。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;2. &lt;a href=&quot;http://jekyllrb.com/&quot;&gt;Jekyll&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;对&lt;a href=&quot;http://www.zhihu.com/question/21981094&quot;&gt;博客系统的讨论&lt;/a&gt;很多，&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Hexo：基于 Node.js，因为文章生成速度快、操作简单、命令精简而受欢迎；本地直接生成网页上传 Github&lt;/li&gt;
+  &lt;li&gt;Jekyll：基于 Ruby；Github 原生，上传到 Github 后自动转换成网页；据说 Geek 更喜欢 Jekyll， 所以就选了它&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;目录和功能介绍&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3. 站点结构&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;GitHub 支持两种形式自定义域名：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Apex domains(一级域名)：在 DNS 提供商也就是 Godady 上修改 A 记录指向 GitHub 的 IP&lt;/li&gt;
+  &lt;li&gt;Subdomains(二级域名)：在 Godaddy 上申请一个 CNAME 记录&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;个人博客一般会考虑直接挂在一级域名上，不同的分支以文件夹形式区分，后缀就是&lt;code class=&quot;highlighter-rouge&quot;&gt;http(s)://&amp;lt;username&amp;gt;.github.io/blog&lt;/code&gt;等等。&lt;/p&gt;
+
+&lt;p&gt;我参考了&lt;a href=&quot;http://http://www.wileam.com&quot;&gt;Wileam&lt;/a&gt;组织结构，一级域名作为网站导航，博客、project等子项目分别建在二级域名上，方便管理和分类、可以灵活用不同主题，也防止 &lt;a href=&quot;http://myweb.jowai.info/bind-subdomain-on-godaddy-for-github-pages/&quot;&gt;Github 不再支持直接指向 IP 地址的 A Host 导致没法查看文章&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;架构如下：&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+  &lt;img width=&quot;420px&quot; height=&quot;180px&quot; src=&quot;/images/structure.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;分别建立 repo:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;一级域名用 &lt;code class=&quot;highlighter-rouge&quot;&gt;User &amp;amp; Organization Pages&lt;/code&gt;，直接在 &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; 分支 commit。&lt;/li&gt;
+  &lt;li&gt;二级域名用 &lt;code class=&quot;highlighter-rouge&quot;&gt;Project Pages&lt;/code&gt;，新建并在&lt;code class=&quot;highlighter-rouge&quot;&gt;gh-pages&lt;/code&gt;分支 commit。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;section-1&quot;&gt;&lt;strong&gt;域名绑定&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;1. 购买域名&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;在 &lt;a href=&quot;https://www.godaddy.com/&quot;&gt;godaddy&lt;/a&gt; 上挑一个没被注册的域名，付钱搞定。一般第一次付款的折扣力度比较大，可以一下多买几年。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2. &lt;a href=&quot;https://help.github.com/articles/tips-for-configuring-an-a-record-with-your-dns-provider/&quot;&gt;一级域名绑定&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;配置 Godaddy：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;配置 A 记录：每个域名只有一个 A 记录，修改 A 记录指向 IP 地址 &lt;code class=&quot;highlighter-rouge&quot;&gt;192.30.252.153&lt;/code&gt; 或者 &lt;code class=&quot;highlighter-rouge&quot;&gt;192.30.252.154&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;配置 www 子域名：新建或修改 www 的 CNAME 记录，指向 A 记录，这样有无 www 的两个网站就能相互跳转&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;配置本地 repo：向根目录添加或修改 CNAME 文件，内容为自己的一级域名 &lt;code class=&quot;highlighter-rouge&quot;&gt;domain&lt;/code&gt;, 此时浏览器输入一级域名就能实现跳转&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3. &lt;a href=&quot;http://myweb.jowai.info/bind-subdomain-on-godaddy-for-github-pages/&quot;&gt;二级域名绑定&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;配置 Godaddy Zone File:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;添加一条 Record，选择 CNAME(Alias)&lt;/li&gt;
+  &lt;li&gt;填写 Host 为二级域名，并指向自己的一级域名&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;注：CNAME 一般几分钟后生效&lt;/p&gt;
+
+&lt;p&gt;配置本地 repo:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;向根目录添加或修改 CNAME 文件，内容为自己的二级域名 &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;subdomain&amp;gt;&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;修改根目录 &lt;code class=&quot;highlighter-rouge&quot;&gt;_config.yml&lt;/code&gt; 配置文件中的 &lt;code class=&quot;highlighter-rouge&quot;&gt;url: http://&amp;lt;subdomain&amp;gt;.&amp;lt;domain&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;section-2&quot;&gt;&lt;strong&gt;运行起来&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;1. &lt;a href=&quot;http://jekyllrb.com/docs/installation/&quot;&gt;安装 Jekyll&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://ruby.taobao.org/&quot;&gt;安装 Ruby / Rubygems &lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ gem install jekyll&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;2. 选个喜欢的模板&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;主页：在 &lt;a href=&quot;http://www.free-css.com/free-css-templates&quot;&gt;Free CSS&lt;/a&gt; 上找单页模板，下载到一级域名对应 repo 的 &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; 分支&lt;/li&gt;
+  &lt;li&gt;博客：在 &lt;a href=&quot;http://jekyllthemes.org/&quot;&gt;Jekyll Themes&lt;/a&gt; 上直接下载，或者用 GitHub &lt;code class=&quot;highlighter-rouge&quot;&gt;clone&lt;/code&gt; 到二级域名对应 repo 的 &lt;code class=&quot;highlighter-rouge&quot;&gt;gh-pages&lt;/code&gt;分支&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;注：初次建站选个顺手的模板太重要！！&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3. 预览&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;本地预览：&lt;code class=&quot;highlighter-rouge&quot;&gt;$ jekyll serve&lt;/code&gt;，浏览器输入 &lt;code class=&quot;highlighter-rouge&quot;&gt;http://localhost:4000&lt;/code&gt; 本地预览模板效果&lt;/li&gt;
+  &lt;li&gt;提交看效果：&lt;code class=&quot;highlighter-rouge&quot;&gt;commit&lt;/code&gt;，&lt;code class=&quot;highlighter-rouge&quot;&gt;push&lt;/code&gt;，页面生效后就能浏览看，看看你的模板在移动端的 Responsive 能力好不好&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;4. 发布第一篇博文&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;在 &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; 下新建名为 &lt;code class=&quot;highlighter-rouge&quot;&gt;YYYY-MM-DD-artical-title&lt;/code&gt; 的 MarkDown 文件&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://sspai.com/25137&quot;&gt;MarkDown 语法说明&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;section-3&quot;&gt;&lt;strong&gt;其他自定义及优化&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;1. 修改模板&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;小修小改：背景图片、字体、主题颜色、增加 about、添加 favicon&lt;/li&gt;
+  &lt;li&gt;推荐一个&lt;a href=&quot;http://blog.javachen.com/2013/08/31/my-jekyll-config.html&quot;&gt;修改大全&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;有用的网站：&lt;a href=&quot;https://www.google.com/fonts&quot;&gt;Google 字体&lt;/a&gt;； &lt;a href=&quot;http://fontawesome.dashgame.com/&quot;&gt;Font Awesome 图标字体库&lt;/a&gt;；&lt;a href=&quot;http://www.ifreesite.com/color/color-code-converter.htm&quot;&gt;色码转换器&lt;/a&gt;； &lt;a href=&quot;http://rgb.phpddt.com/&quot;&gt;色彩对照表&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;2. 增加功能&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Categories&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Disqus 评论系统&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://codingtips.kanishkkunal.in/share-buttons-jekyll/&quot;&gt;页内分享&lt;/a&gt;：除了自己写链接代码外，分享到国内社交平台还可以用&lt;a href=&quot;http://share.baidu.com/code/&quot;&gt;百度分享&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Google Analytics&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://zyzhang.github.io/blog/2012/08/31/highlight-with-Jekyll-and-Pygments/&quot;&gt;代码高亮&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;3. &lt;a href=&quot;http://jekyll.tips/tutorials/seo/&quot;&gt;SEO 优化&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;meta&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Permalinks&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;自定义 404.html&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;sitemap&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;最后，感谢我的两个模板 &lt;a href=&quot;https://github.com/mojombo/tpw&quot;&gt;TPW&lt;/a&gt; 和 &lt;a href=&quot;https://github.com/nandomoreirame/zetsu&quot;&gt;Zetsu&lt;/a&gt; 让我省了很多力 :D&lt;/p&gt;
+</description>
+        <pubDate>Fri, 20 Nov 2015 23:34:32 +0800</pubDate>
+        <link>http://code.liqingyao.com/bulid-personal-blog/</link>
+        <guid isPermaLink="true">http://code.liqingyao.com/bulid-personal-blog/</guid>
+        
+        
+        <category>其他</category>
+        
+      </item>
     
       <item>
         <title>搭建工作环境</title>
