@@ -70,8 +70,9 @@ GitHub 支持两种形式自定义域名：
 
 分别建立 repo:
 
-- 一级域名用 `User & Organization Pages`，直接在 `master` 分支 commit。
-- 二级域名用 `Project Pages`，新建并在`gh-pages`分支 commit。
+- 一级域名用 `User & Organization Pages`，直接在 `master` 分支 commit
+
+- 二级域名用 `Project Pages`，新建并在`gh-pages`分支 commit
 
 ###**绑定域名**
 
@@ -134,7 +135,9 @@ GitHub 支持两种形式自定义域名：
 **1. 修改模板**
 
 - 小修小改：背景图片、字体、主题颜色、添加 favicon
+
 - 添加模块： About、Categories
+
 - 有用的网站：[修改大全](http://blog.javachen.com/2013/08/31/my-jekyll-config.html)； [Google 字体](https://www.google.com/fonts)； [Font Awesome 图标字体库](http://fontawesome.dashgame.com/)；[色码转换器](http://www.ifreesite.com/color/color-code-converter.htm)； [色彩对照表](http://rgb.phpddt.com/)
 
 **2. 增加功能**
