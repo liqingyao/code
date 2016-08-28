@@ -17,9 +17,9 @@ comments: true
 
 从零开始搭博客挺好玩，也可以趁此机会学一些前端。按照[教程](http://beiyuu.com/github-pages/)一步步走完后，博客初见规模。要做到更好还要考虑性能优化、网站分析和其他功能，有很多可以挖掘的，完全看个人喜好和发挥。当然最重要还是内容。弄完后才知道一篇华丽丽的牛人博客，其实很花心思！相关的建站教程很多，我就结合自己的建站过程整理下思路，有兴趣的也可以直接在 Github 上 clone。
 
-###**确定环境和架构**
+### 确定环境和架构
 
-**1. [GitHub Pages](https://pages.github.com/)**
+#### 1. [GitHub Pages](https://pages.github.com/)
 
 用 GitHub 托管博客的好处是方便查看和共享、轻量级、干净简单、还可以绑定域名。配合 Jekyll / Hexo / Ghost 等博客系统站内生成网页，直接在本地 repo 更新、发布博客，可以更专注于码字。
 
@@ -29,7 +29,7 @@ comments: true
 
 - [进阶版](https://help.github.com/categories/github-pages-features/)了解下 Pages 还有订阅、表情、重定向、Sitemap 等功能和插件
 
-**2. [Jekyll](http://jekyllrb.com/)**
+#### 2. [Jekyll](http://jekyllrb.com/)
 
 对[博客系统的讨论](http://www.zhihu.com/question/21981094)很多，
 
@@ -43,7 +43,7 @@ comments: true
 
 - 了解 Jekyll 还可以安装许多插件
 
-**3. 站点结构**
+#### 3. 站点结构
 
 GitHub 支持[两种形式的 Pages](https://help.github.com/articles/user-organization-and-project-pages/)：
 
@@ -74,13 +74,13 @@ GitHub 支持两种形式自定义域名：
 
 - 二级域名用 `Project Pages`，新建并在`gh-pages`分支 commit
 
-###**绑定域名**
+### 绑定域名
 
-**1. 购买域名**
+#### 1. 购买域名
 
 在 [godaddy](https://www.godaddy.com/) 上挑一个没被注册的域名，付钱搞定。一般第一次付款的折扣力度比较大，可以一下多买几年。
 
-**2. [绑定一级域名](https://help.github.com/articles/tips-for-configuring-an-a-record-with-your-dns-provider/)**
+#### 2. [绑定一级域名](https://help.github.com/articles/tips-for-configuring-an-a-record-with-your-dns-provider/)
 
 配置 Godaddy：
 
@@ -90,7 +90,7 @@ GitHub 支持两种形式自定义域名：
 
 配置本地 repo：向根目录添加或修改 CNAME 文件，内容为自己的一级域名 `domain`, 此时浏览器输入一级域名就能实现跳转
 
-**3. [绑定二级域名](http://myweb.jowai.info/bind-subdomain-on-godaddy-for-github-pages/)**
+#### 3. [绑定二级域名](http://myweb.jowai.info/bind-subdomain-on-godaddy-for-github-pages/)
 
 配置 Godaddy Zone File:
 
@@ -104,35 +104,35 @@ GitHub 支持两种形式自定义域名：
 
   2. 修改根目录 `_config.yml` 配置文件中的 `url: http://<subdomain>.<domain>`
 
-###**运行起来**
+### 运行起来
 
-**1. [安装 Jekyll](http://jekyllrb.com/docs/installation/)**
+#### 1. [安装 Jekyll](http://jekyllrb.com/docs/installation/)
 
 - [安装 Ruby / Rubygems ](https://ruby.taobao.org/)
 
 - `$ gem install jekyll`
 
-**2. 选个喜欢的模板**
+#### 2. 选个喜欢的模板
 
 - 主页：在 [Free CSS](http://www.free-css.com/free-css-templates) 上找单页模板，下载到一级域名对应 repo 的 `master` 分支
 
 - 博客：在 [Jekyll Themes](http://jekyllthemes.org/) 上直接下载，或者用 GitHub `clone` 到二级域名对应 repo 的 `gh-pages`分支
 
-**3. 预览**
+#### 3. 预览
 
 - 本地预览：`$ jekyll serve`，浏览器输入 `http://localhost:4000` 本地预览模板效果
 
 - 提交看效果：`commit`，`push`，页面生效后就能浏览看，看看你的模板在移动端的 Responsive 能力好不好
 
-**4. 发布第一篇博文**
+#### 4. 发布第一篇博文
 
 - 在 `_posts` 下新建名为 `YYYY-MM-DD-artical-title` 的 MarkDown 文件
 
 - [MarkDown 语法说明](http://sspai.com/25137)
 
-###**其他自定义及优化**
+### 其他自定义及优化
 
-**1. 修改模板**
+#### 1. 修改模板
 
 - 小修小改：背景图片、字体、主题颜色、添加 favicon
 
@@ -140,7 +140,7 @@ GitHub 支持两种形式自定义域名：
 
 - 有用的网站：[修改大全](http://blog.javachen.com/2013/08/31/my-jekyll-config.html)； [Google 字体](https://www.google.com/fonts)； [Font Awesome 图标字体库](http://fontawesome.dashgame.com/)；[色码转换器](http://www.ifreesite.com/color/color-code-converter.htm)； [色彩对照表](http://rgb.phpddt.com/)
 
-**2. 增加功能**
+#### 2. 增加功能
 
 - [Disqus 评论模块](http://blog.masr.in/geek/add_comment_to_jekyll.html)：Jekyll 不支持数据库，评论模块需要另装，[Disqus](https://disqus.com/) 和 国内的[多说](http://duoshuo.com/)都不错
 
@@ -150,7 +150,7 @@ GitHub 支持两种形式自定义域名：
 
 - [代码高亮](http://zyzhang.github.io/blog/2012/08/31/highlight-with-Jekyll-and-Pygments/)：MarkDown 原生的代码块没有高亮，可以用 Pygments 选择喜欢的主题，生成 CSS 样式，引用到自己的模板中
 
-**3. [SEO 网站优化](http://jekyll.tips/tutorials/seo/)**
+#### 3. [SEO 网站优化](http://jekyll.tips/tutorials/seo/)
 
  SEO（Search Engine Optimize) 是专为 Google 或 百度小爬虫能有效找到博客的优化方法。
 

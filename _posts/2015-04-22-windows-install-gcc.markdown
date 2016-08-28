@@ -5,10 +5,10 @@ date:   2015-04-22 10:21:32
 categories: 其他
 comments: true
 ---
-###**什么是GCC?**
+### 什么是GCC?
 我们在Windows系统下习惯使用诸如Windows Visual Stdio图形化IDE工具来编辑和编译代码，但在Unix/Linux系统下如何编译C++代码呢？答案是GCC(GUN Compiler Collection)。GCC源于一场自由软件计划，最初只能在不同操作系统上处理C语言，经过快速扩张后目前也支持C++/Objective-C/Java/Ada/Pascal/Fortran等多种语言的编译。
 
-###**安装GCC**
+### 安装GCC
 1. 下载安装MinGW
 MinGW(Minimalist GNU on Windows)是Windows系统下GNU工具套装，使用MinGW来安装GCC。
 <a href="http://sourceforge.net/projects/mingw/files/">点击下载</a>，并安装到C盘根目录。
@@ -26,7 +26,7 @@ MinGW(Minimalist GNU on Windows)是Windows系统下GNU工具套装，使用MinGW
 <code>gcc --version</code>
 如果安装成功，会显示gcc版本号。
 
-###**使用GCC**
+### 使用GCC
 1. 创建GCC工作目录
 <code>mkdir CPP</code>
 2. 前往工作目录
