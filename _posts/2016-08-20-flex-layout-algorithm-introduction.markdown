@@ -101,21 +101,21 @@ CSSLayout 按照 [CSS Flexbox 标准]((https://www.w3.org/TR/css-flexbox-1/))建
 `layoutNode` 的 `measure` 方法可以通过协议让具体的视图来实现：
 
 {% highlight ruby %}
-    - (CGSize (^)(CGFloat))measure
-    {
-      CGSize (^measure)(CGFloat w) = objc_getAssociatedObject(self, _cmd);
-      if (measure == nil)
-      {
-        __weak typeof(self) wself = self;
-        measure = ^CGSize(CGFloat width) {
-            __strong typeof(wself) sself = wself;
-            CGFloat w = isnan(width) ? 0 : width;
-            return [sself sizeThatFits:CGSizeMake(w, MAXFLOAT)];
-        };
-        [self setMeasure:measure];
-      }
-      return measure;
-    }
+- (CGSize (^)(CGFloat))measure
+{
+  CGSize (^measure)(CGFloat w) = objc_getAssociatedObject(self, _cmd);
+  if (measure == nil)
+  {
+    __weak typeof(self) wself = self;
+    measure = ^CGSize(CGFloat width) {
+        __strong typeof(wself) sself = wself;
+        CGFloat w = isnan(width) ? 0 : width;
+        return [sself sizeThatFits:CGSizeMake(w, MAXFLOAT)];
+    };
+    [self setMeasure:measure];
+  }
+  return measure;
+}
 {% endhighlight %}
 
 
