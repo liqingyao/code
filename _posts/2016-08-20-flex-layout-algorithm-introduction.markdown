@@ -79,32 +79,31 @@ CSSLayout 按照 CSS Flexbox 标准建议的流程计算布局，主要步骤：
 
 计算过程中用到的布局属性包括：
 
-  1. 位置 `position`，包括 `left`、`top`、`right`、`bottom` 四个定位值
-  2. 尺寸 `dimension`，包括 `width` 和 `height`
-  3. 估计尺寸 `measuredDimension`，包括 `width` 和 `height`，`measuredDimension` 是计算过程中的中间变量，几次迭代后得到最终的 `dimension`
+  - 位置 `position`，包括 `left`、`top`、`right`、`bottom` 四个定位值
+  - 尺寸 `dimension`，包括 `width` 和 `height`
+  - 估计尺寸 `measuredDimension`，包括 `width` 和 `height`，`measuredDimension` 是计算过程中的中间变量，几次迭代后得到最终的 `dimension`
 
 布局模式：
 
-  1. 未定义
-  2. 精确
-  3. 至多
+  - 未定义 `MeasureModeUndified`
+  - 精确 `MeasureModeExactly`
+  - 至多 `MeasureModeAtMost`
 
 #### 布局效果
 
-首先定义排版对象：
+文章中用下面的排版来解析布局算法：
+
+![layout-result]({{ site.url }}/images/layout-result.png)
 
   1. 最外层是一个 Flex 容器对象，内部包含四个 Flex 元素对象和一个绝对布局对象，容器对象定宽 `600px`，高度由内部对象决定，同时规定了主轴、`margin` 和 `padding`，以及一些对齐方式：行排列、元素可换行、主轴起点对齐、交叉轴起点对齐、多行时沿交叉轴两端对齐
   2. 内部第一个元素定宽 `300px`，高度由内容决定，实际可能是一个 Label、TextField 或者 ImageView；第二个元素定高 `100px`，上下外边距各 `40px`，扩展比例系数为 `2`，压缩比例系数为 `1`；第三个元素定义最小宽度 `100px`，扩展和压缩比例系数都为 `1`，并规定自己沿交叉轴拉伸对齐；第四个元素定宽 `200px`，高度由内部子元素决定
   3. 最后一个绝对布局对象定义其距离父对象的右边距和下边距各 `10px`
 
-布局后的效果图：
-
-接下来就来解析算法如何一步步计算得到最终的布局
-
 ### 预处理
 
 算法首先对内容节点、叶子节点和非布局节点这三种情况进行预处理，提前返回，减少走完整个流程的次数，尽可能的减少计算量。
-图 xmind-precalculating
+
+![xmind-precalculating]({{ site.url }}/images/xmind-precalculating.png)
 
 #### 内容节点
 
@@ -132,6 +131,8 @@ CSSLayout 按照 CSS Flexbox 标准建议的流程计算布局，主要步骤：
 ### 确定 flexBasis
 
 这一步确定容器中每个子元素的在主轴上的 `flexBasis` 值。`flexBasis` 是每个元素的在未扩展和压缩前的基准尺寸，父容器用来计算主轴的剩余空间，然后根据扩展和压缩比例系数为每个 Flex 子元素调整尺寸。由于绝对定位子节点不参与 Flex 布局，因此不需要计算 `flexBasis` 值，在这一步中，会先把绝对定位子节点存储在链表中，在 Flex 布局完成后再单独计算所有绝对定位节点的布局。
+
+![xmind-flexbasis]({{ site.url }}/images/xmind-flexbasis.png)
 
 对于相对定位子节点：
 
