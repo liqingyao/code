@@ -6,13 +6,14 @@ categories: WebNative
 comments: true
 ---
 实现 Web-Native 混合开发已有很多知名开源框架，包括 Facebook 的 React-Native， 阿里的 Weex， GeekZoo 的 Samurai-Native 和 Bee-Framework。其实现各有差异和特色，React-Native 采用 JSX + JS + CSS 技能栈，为前端开发者向移动端迁移这一路径提供了解决方案。与 React-Native 侧重 JS 端不同的是，Samurai-Native 的原生端更重，采用 W3C 标准 HTML + CSS + JS，更倾向于为移动端开发者向前端开发迁移这一路径提供解决方案。无论何种框架，要实现通过用网页的规范或自定义的模板规范来达到动态控制原生 UI，都会包含以下过程：
-1. HTML 或模板解析，构建 DOM 树
-2. CSS 样式解析，并转换为原生系统属性
-3. 动态数据解析及注入
-4. 从 DOM 树构建渲染树
-5. 对渲染树各节点应用样式，并计算布局
-6. 对渲染树各节点绑定事件，实现 JS 和原生方法之间的互相调用
-7. 从渲染树生成视图，最终显示
+
+  1. HTML 或模板解析，构建 DOM 树
+  2. CSS 样式解析，并转换为原生系统属性
+  3. 动态数据解析及注入
+  4. 从 DOM 树构建渲染树
+  5. 对渲染树各节点应用样式，并计算布局
+  6. 对渲染树各节点绑定事件，实现 JS 和原生方法之间的互相调用
+  7. 从渲染树生成视图，最终显示
 
 布局是承上启下的中间环节，渲染树是从 DOM 树映射而来的可布局的层级关系，通过应用布局属性确定视图排版。React-Native 和 Weex 的核心布局算法都采用 Facebook 开源的 CSSLayout 算法，CSSLayout 基于 W3C 标准的 Flexbox 模型对页面元素排版，同时也支持相对布局和绝对布局，iOS 和 Andriod 平台都适用。把布局和视图生成两部分从整个架构中抽离出来，也可成为客户端 UI 框架，比如 Facebook 的 ComponentKit 和 AsyncDisplayKit，前者用 React 的思路通过描述性、可组合的组件实现视图层，后者极大程度的优化了布局、渲染等操作，大大提高了帧率。因此布局不仅是起承转合的环节，更是性能的瓶颈所在，需要非常扎实的功底，灵活运用缓存、线程切换等手段来优化性能。水很深，慢慢学习，先从布局算法开始。
 
@@ -156,7 +157,7 @@ CSSLayout 按照 CSS Flexbox 标准建议的流程计算布局，主要步骤：
 1. 累加当前行所消耗的主轴尺寸 `sizeConsumedOnCurrentLine += flexBasis + margin`
 2. 累加扩展系数 `flexGrowFactors += flexGrow`
 3. 累加压缩比例系数 `flexShrinkScaledFactors += flexShrink * flexBasis`，注意 Flex 中定义压缩比例是相对于子节点的主轴尺寸而言，因此压缩系数需要乘 `flexBasis` 后再累加
-4. 把节点保存到相对布局节点链表中，之后进行布局 
+4. 把节点保存到相对布局节点链表中，之后进行布局
 
 到这里可以确定容器分为两行，第一行 `sizeConsumedOnCurrentLine = ` `flexGrowFactors = 3`，`flexGrowFactors = 3`。
 
@@ -186,7 +187,7 @@ CSSLayout 按照 CSS Flexbox 标准建议的流程计算布局，主要步骤：
 
 **4. 交叉轴位置计算**
 
-1. 
+1.
 
 ###**多行计算**
 
