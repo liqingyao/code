@@ -20,6 +20,7 @@ gems: [jekyll-paginate]
 paginate: 9
 comments: true
 paginate_path: "/page/:num"
+future: true
 
 sass:
   style: :compressed
