@@ -17,7 +17,7 @@ comments: true
 
 布局是承上启下的中间环节，渲染树是从 DOM 树映射而来的可布局的层级关系，通过应用布局属性确定视图排版。React-Native 和 Weex 的核心布局算法都采用 Facebook 开源的 [CSSLayout](https://github.com/facebook/css-layout) 算法，CSSLayout 基于 [W3C 标准的 Flexbox 模型](https://www.w3.org/TR/css-flexbox-1/)对页面元素排版，同时也支持相对布局和绝对布局，iOS 和 Andriod 平台都适用。把布局和视图生成两部分从整个架构中抽离出来，也可成为客户端 UI 框架，比如 Facebook 的 [ComponentKit](http://componentkit.org/) 和 [AsyncDisplayKit](http://asyncdisplaykit.org/)，前者用 React 的思路通过描述性、可组合的组件实现视图层，后者极大程度的优化了布局、渲染等操作，大大提高了帧率。因此布局不仅是起承转合的环节，更是性能的瓶颈所在，需要非常扎实的功底，灵活运用缓存、线程切换等手段来优化性能。水很深，慢慢学习，先从布局算法开始。
 
-CSSLayout 基于 Flexbox 模型，对容器类可应用以下属性：
+CSSLayout 基于 Flexbox 模型，对容器可应用以下属性：
 
   - FlexDirection
   - FlexWrap
@@ -25,37 +25,41 @@ CSSLayout 基于 Flexbox 模型，对容器类可应用以下属性：
   - AlignItems
   - AlignContent
 
-对元素类可应用以下属性：
+对元素可应用以下属性：
 
   - Flex
   - AlignSelf
 
-CSSLayout 除了 Flex 属性外，还可支持：
+除了 Flex 属性，还支持普通的 Position 和 Overflow 属性。
 
-  - Position
-  - Overflow
-
-CSSLayout 按照 CSS Flexbox 标准建议的流程计算布局，主要步骤：
+CSSLayout 按照 [CSS Flexbox 标准]((https://www.w3.org/TR/css-flexbox-1/))建议的流程计算布局，主要步骤：
 
   1. 对特殊节点和情况进行预处理：
 
-    - 文本节点：采用 measure 方法，通过回调视图对文本实际计算得到的尺寸确定宽高
-    - 叶子节点：直接求解，不进行递归计算
-    - 不执行 layout 计算的节点：直接求解
+  1.1 文本节点：采用 measure 方法，通过回调视图对文本实际计算得到的尺寸确定宽高
+
+  1.2 叶子节点：直接求解，不进行递归计算
+
+  1.3 不执行布局计算的节点：直接求解
 
   2. 确定节点内每个子节点的 FlexBasis
+
   3. 对节点内所有子节点遍历，对元素分行并计算主轴和交叉轴对齐
 
-    3.1 将子节点分行
+  3.1 将子节点分行
 
-    3.2 计算当前行内元素在主轴上的尺寸，计算当前行剩余可分配空间
+  3.2 计算当前行内元素在主轴上的尺寸，计算当前行剩余可分配空间
 
-    3.3 计算当前行内元素在主轴上的位置，计算当前行内元素在交叉轴上的尺寸
+  3.3 计算当前行内元素在主轴上的位置，计算当前行内元素在交叉轴上的尺寸
 
-    3.4 计算当前行内元素在交叉轴上的位置
+  3.4 计算当前行内元素在交叉轴上的位置
+
   4. 计算节点的多行对齐，更新元素在交叉轴上的位置
+
   5. 计算节点的最终尺寸和位置
+
   6. 计算绝对定位子节点的尺寸和位置
+
   7. 设置子节点的 trailing 位置
 
 ### 准备
