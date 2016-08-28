@@ -100,7 +100,7 @@ CSSLayout 按照 [CSS Flexbox 标准]((https://www.w3.org/TR/css-flexbox-1/))建
 
 `layoutNode` 的 `measure` 方法可以通过协议让具体的视图来实现：
 
-```csharp
+{% highlight ruby %}
     - (CGSize (^)(CGFloat))measure
     {
       CGSize (^measure)(CGFloat w) = objc_getAssociatedObject(self, _cmd);
@@ -116,7 +116,7 @@ CSSLayout 按照 [CSS Flexbox 标准]((https://www.w3.org/TR/css-flexbox-1/))建
       }
       return measure;
     }
-```
+{% endhighlight %}
 
 
 引用 `layoutNode` 的上下文可以拿到其绑定视图的 `measure` 方法。
