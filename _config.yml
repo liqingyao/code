@@ -29,4 +29,5 @@ sass:
 # Build settings
 markdown  : kramdown
 permalink : /:title/
-incremental: YES
+incremental: true
+sitemap: true
