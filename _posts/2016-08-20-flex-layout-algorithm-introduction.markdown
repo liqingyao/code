@@ -35,15 +35,15 @@ CSSLayout 基于 Flexbox 模型，对容器可应用以下属性：
 CSSLayout 按照 [CSS Flexbox 标准]((https://www.w3.org/TR/css-flexbox-1/))建议的流程计算布局，主要步骤：
 
   1. 对特殊节点和情况进行预处理：
-    1.1 内容节点：采用 measure 方法，通过回调视图对文本实际计算得到的尺寸确定宽高
-    1.2 叶子节点：直接求解，不进行递归计算
-    1.3 对不需要计算布局的节点直接求解
+   - 内容节点：采用 measure 方法，通过回调视图对文本实际计算得到的尺寸确定宽高
+   - 叶子节点：直接求解，不进行递归计算
+   - 对不需要计算布局的节点直接求解
   2. 确定节点内每个子节点的 flexBasis
   3. 对节点内所有子节点遍历，对元素分行并计算主轴和交叉轴对齐：
-    3.1 将子节点分行
-    3.2 计算当前行内元素在主轴上的尺寸，计算当前行剩余可分配空间
-    3.3 计算当前行内元素在主轴上的位置，计算当前行内元素在交叉轴上的尺寸
-    3.4 计算当前行内元素在交叉轴上的位置
+   - 将子节点分行
+   - 计算当前行内元素在主轴上的尺寸，计算当前行剩余可分配空间
+   - 计算当前行内元素在主轴上的位置，计算当前行内元素在交叉轴上的尺寸
+   - 计算当前行内元素在交叉轴上的位置
   4. 计算节点的多行对齐，更新元素在交叉轴上的位置
   5. 计算节点的最终尺寸和位置
   6. 计算绝对定位子节点的尺寸和位置
@@ -85,7 +85,7 @@ CSSLayout 按照 [CSS Flexbox 标准]((https://www.w3.org/TR/css-flexbox-1/))建
 ![layout-result]({{ site.url }}/images/layout-result.png)
 
   1. 最外层是一个 Flex 容器对象，内部包含四个 Flex 元素对象和一个绝对布局对象，容器对象定宽 `600px`，高度由内部对象决定，同时规定了主轴、`margin` 和 `padding`，以及一些对齐方式：行排列、元素可换行、主轴起点对齐、交叉轴起点对齐、多行时沿交叉轴两端对齐
-  2. 内部第一个元素定宽 `300px`，高度由内容决定，实际可能是一个 Label、TextField 或者 ImageView；第二个元素定高 `100px`，上下外边距各 `40px`，扩展比例系数为 `2`，压缩比例系数为 `1`；第三个元素定义最小宽度 `100px`，扩展和压缩比例系数都为 `1`，并规定自己沿交叉轴拉伸对齐；第四个元素定宽 `200px`，高度由内部子元素决定
+  2. 内部第一个元素定宽 `300px`，高度由内容决定，实际可能是一个 `Label`、`TextField` 或者 `ImageView`；第二个元素定高 `100px`，上下外边距各 `40px`，扩展比例系数为 `2`，压缩比例系数为 `1`；第三个元素定义最小宽度 `100px`，扩展和压缩比例系数都为 `1`，并规定自己沿交叉轴拉伸对齐；第四个元素定宽 `200px`，高度由内部子元素决定
   3. 最后一个绝对布局对象定义其距离父对象的右边距和下边距各 `10px`
 
 ### 预处理
@@ -96,7 +96,7 @@ CSSLayout 按照 [CSS Flexbox 标准]((https://www.w3.org/TR/css-flexbox-1/))建
 
 #### 内容节点
 
-对 `Label`、`TextField` 等文本节点和 `ImageView` 等由内容决定的节点直接通过外部传入的 measure 回调拿到尺寸。
+对 `Label`、`TextField` 等文本节点和 `ImageView` 等由内容决定的节点直接通过外部传入的 `measure` 回调拿到尺寸。
 
 `layoutNode` 的 `measure` 方法可以通过协议让具体的视图来实现：
 
@@ -144,12 +144,10 @@ CSSLayout 按照 [CSS Flexbox 标准]((https://www.w3.org/TR/css-flexbox-1/))建
   1. 如果样式中直接规定了主轴尺寸，则 `flexBasis` 直接被指定，这里还会将尺寸和 `padding + border` 的尺寸比较，限定 `flexBasis` 不能小于内边距和边框长度
   2. 如果 `flexBasis <= 0` 并且内部主轴尺寸未定义，则 `flexBasis = 0`
   3. 其他情况则通过估计子节点内部元素的尺寸来确定，这里首先会估算子节点的宽高并确定对应的估计模式：
-
-    3.1 样式中定义了宽高：直接使用定义的值，且指定模式为 `MeasureModeExactly`
-    3.2 交叉轴尺寸未定义：根据标准，在未定义交叉轴尺寸的情况下，默认等于由外部指定的最大可用尺寸，并且指定模式是 `MeasureModeAtMost`
-    3.3 交叉轴拉伸对齐：交叉轴尺寸为最大可用尺寸，且指定模式为 `MeasureModeExactly`
-    3.4 然后调用 layout 函数递归估算内部节点在主轴上所占用的尺寸，并赋值给 `flexBasis`
-        layout 函数
+   - 样式中定义了宽高：直接使用定义的值，且指定模式为 `MeasureModeExactly`
+   - 交叉轴尺寸未定义：根据标准，在未定义交叉轴尺寸的情况下，默认等于由外部指定的最大可用尺寸，并且指定模式是 `MeasureModeAtMost`
+   - 交叉轴拉伸对齐：交叉轴尺寸为最大可用尺寸，且指定模式为 `MeasureModeExactly`
+   - 然后调用 layout 函数递归估算内部节点在主轴上所占用的尺寸，并赋值给 `flexBasis`
 
 这步中可以得到容器中第一个元素 `flexBasis = 300px`，第二个元素 `flexBasis = padding + border`，第三个元素 `flexBasis = 100px`，第四个元素 `flexBasis = 200px`。
 
@@ -172,9 +170,9 @@ CSSLayout 按照 [CSS Flexbox 标准]((https://www.w3.org/TR/css-flexbox-1/))建
 
   1. 计算初始剩余可分配空间
   2. 初步计算子节点的主轴 flex 尺寸，主要处理触发边界限制的元素
-  	2.1 经 flex 扩展和压缩后，对触发边界限制的元素使用边界条件，比如元素扩展后的尺寸大于 `maxWidth` 限制，则元素的主轴尺寸为 `maxWidth`
-  	2.2 累加触发边界限制元素的修正空间 `deltaFreeSpace`、修正扩展系数 `deltaFlexGrowFactors` 和修正压缩比例系数 `deltaFlexShrinkScaledFactors`
-  	2.3 剔除触发边界限制的元素，并更新剩余可分配空间和扩展压缩系数
+   - 经 flex 扩展和压缩后，对触发边界限制的元素使用边界条件，比如元素扩展后的尺寸大于 `maxWidth` 限制，则元素的主轴尺寸为 `maxWidth`
+   - 累加触发边界限制元素的修正空间 `deltaFreeSpace`、修正扩展系数 `deltaFlexGrowFactors` 和修正压缩比例系数 `deltaFlexShrinkScaledFactors`
+   - 剔除触发边界限制的元素，并更新剩余可分配空间和扩展压缩系数
   3. 重新计算子节点的主轴 flex 尺寸
   4. 确定子节点主轴尺寸及估计模式：主轴尺寸为子节点主轴 flex 尺寸加上外边距尺寸，并规定模式为 `MeasureModeExactly`
   5. 确定子节点交叉轴尺寸及估计模式：
@@ -191,10 +189,9 @@ CSSLayout 按照 [CSS Flexbox 标准]((https://www.w3.org/TR/css-flexbox-1/))建
 
   1. 对主轴估计模式为 `MeasureModeAtMost` 的情况，清空剩余空间
   2. 根据容器的 `JustifyContent` 属性计算 `leadingMainDim` 和 `betweenMainDim`
-  3. 对本行内元素依次计算主轴位置 `posotion[mainAxis] = mainDim`，并更新 `mainDim` 和初步计算 `crossDim`：
-  3.1 对非 layout 节点：`mainDim += betweenMainDim + margin + flexBasis`，`crossDim` 为外部设定的可用尺寸
-  3.2 对 layout 节点： `mainDim += betweenMainDim + margin + measureDim`，`crossDim` 为本行元素最大交叉轴尺寸
-
+  3. 对本行内元素依次计算主轴位置 `posotion[mainAxis] = mainDim`，并更新 `mainDim` 和初步计算 `crossDim`
+   - 对非 layout 节点：`mainDim += betweenMainDim + margin + flexBasis`，`crossDim` 为外部设定的可用尺寸
+   - 对 layout 节点： `mainDim += betweenMainDim + margin + measureDim`，`crossDim` 为本行元素最大交叉轴尺寸
   4. 确定本行交叉轴尺寸
 
 #### 交叉轴位置计算
