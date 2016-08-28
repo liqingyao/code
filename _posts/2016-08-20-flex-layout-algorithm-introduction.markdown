@@ -70,10 +70,10 @@ CSSLayout 按照 CSS Flexbox 标准建议的流程计算布局，主要步骤：
 
 ![style-properties]({{ site.url }}/images/style-properties.png)
 
-  1. 主轴 `mainAxis` 以及垂直于主轴方向的交叉轴 `crossAxis`
-  2. 外边距 `margin`、边框 `border`、内边距 `padding`，这三个边距都分别包括 `left`、`top`、`right`、`bottom` 四个方向的值，可以分别指定。需要注意的是，对象的实际尺寸 `width` 和 `height` 是除去 `margin` 后的部分，而在计算过程中，一个对象内部的计算尺寸是除去 `border` 和 `padding` 后的部分。
-  3. `leading` 和 `trailing` 是另一种访问上面三个边距的方式，根据 `FlexDirection` 属性分别对应不同边缘的边距值，`leading-left` 在行排列 `Row` 时对应 `left` 边缘，在列排列 `Column` 时对应 `top` 边缘，在逆向行排列 `RowReverse` 时对应 `right` 边缘，在逆向列排列 `Column-Reverse` 时对应 `bottom` 边缘。
-  4. 对象的边界可以通过 `minWidth`、`minHeight`、`maxWidth`、`maxHeight` 来指定，当基于 `FlexGrow` 扩展和 `FlexShrink` 压缩时作为边界的约束条件。
+  - 主轴 `mainAxis` 以及垂直于主轴方向的交叉轴 `crossAxis`
+  - 外边距 `margin`、边框 `border`、内边距 `padding`，这三个边距都分别包括 `left`、`top`、`right`、`bottom` 四个方向的值，可以分别指定。需要注意的是，对象的实际尺寸 `width` 和 `height` 是除去 `margin` 后的部分，而在计算过程中，一个对象内部的计算尺寸是除去 `border` 和 `padding` 后的部分。
+  - `leading` 和 `trailing` 是另一种访问上面三个边距的方式，根据 `FlexDirection` 属性分别对应不同边缘的边距值，`leading-left` 在行排列 `Row` 时对应 `left` 边缘，在列排列 `Column` 时对应 `top` 边缘，在逆向行排列 `RowReverse` 时对应 `right` 边缘，在逆向列排列 `Column-Reverse` 时对应 `bottom` 边缘。
+  - 对象的边界可以通过 `minWidth`、`minHeight`、`maxWidth`、`maxHeight` 来指定，当基于 `FlexGrow` 扩展和 `FlexShrink` 压缩时作为边界的约束条件。
 
 布局算法把外部传入的计算属性先转化为对应的数组，通过下标访问具体值，而下标又是通过主轴、交叉轴构造的映射关系表来获取。比如在四种 `FlexDirection` 模式下，`margin` 的 `left` 值可以统一用 `margin[leading[mainAxis]]` 来表示。
 
@@ -89,7 +89,7 @@ CSSLayout 按照 CSS Flexbox 标准建议的流程计算布局，主要步骤：
   - 精确 `MeasureModeExactly`
   - 至多 `MeasureModeAtMost`
 
-#### 布局效果
+#### 布局模板
 
 文章中用下面的排版来解析布局算法：
 
@@ -110,10 +110,27 @@ CSSLayout 按照 CSS Flexbox 标准建议的流程计算布局，主要步骤：
 对 `Label`、`TextField` 等文本节点和 `ImageView` 等由内容决定的节点直接通过外部传入的 measure 回调拿到尺寸。
 
 `layoutNode` 的 `measure` 方法可以通过协议让具体的视图来实现：
-图
+
+```
+    - (CGSize (^)(CGFloat))measure
+    {
+      CGSize (^measure)(CGFloat w) = objc_getAssociatedObject(self, _cmd);
+      if (measure == nil)
+      {
+        __weak typeof(self) wself = self;
+        measure = ^CGSize(CGFloat width) {
+            __strong typeof(wself) sself = wself;
+            CGFloat w = isnan(width) ? 0 : width;
+            return [sself sizeThatFits:CGSizeMake(w, MAXFLOAT)];
+        };
+        [self setMeasure:measure];
+      }
+      return measure;
+    }
+```
+
 
 引用 `layoutNode` 的上下文可以拿到其绑定视图的 `measure` 方法：
-图
 
 内容节点宽高的取值由外部传入的布局模式决定，精确模式下内容节点的尺寸就是外部传入的宽高，未定义和至多模式下尺寸由 `measure` 回调的宽高确定，同时要保证内部尺寸非负。
 为了比较清晰的阐明思路，只列出了宽度的计算表达式。
