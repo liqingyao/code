@@ -111,7 +111,7 @@ CSSLayout 按照 CSS Flexbox 标准建议的流程计算布局，主要步骤：
 
 `layoutNode` 的 `measure` 方法可以通过协议让具体的视图来实现：
 
-```
+```ruby
     - (CGSize (^)(CGFloat))measure
     {
       CGSize (^measure)(CGFloat w) = objc_getAssociatedObject(self, _cmd);
@@ -133,6 +133,7 @@ CSSLayout 按照 CSS Flexbox 标准建议的流程计算布局，主要步骤：
 引用 `layoutNode` 的上下文可以拿到其绑定视图的 `measure` 方法：
 
 内容节点宽高的取值由外部传入的布局模式决定，精确模式下内容节点的尺寸就是外部传入的宽高，未定义和至多模式下尺寸由 `measure` 回调的宽高确定，同时要保证内部尺寸非负。
+
 为了比较清晰的阐明思路，只列出了宽度的计算表达式。
 
 #### 叶子节点
