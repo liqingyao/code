@@ -5,9 +5,9 @@
     <description>Hello World</description>
     <link>http://code.liqingyao.com/</link>
     <atom:link href="http://code.liqingyao.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 02 Dec 2015 11:34:10 +0800</pubDate>
-    <lastBuildDate>Wed, 02 Dec 2015 11:34:10 +0800</lastBuildDate>
-    <generator>Jekyll v3.0.1</generator>
+    <pubDate>Sun, 28 Aug 2016 12:38:57 +0800</pubDate>
+    <lastBuildDate>Sun, 28 Aug 2016 12:38:57 +0800</lastBuildDate>
+    <generator>Jekyll v3.2.1</generator>
     
       <item>
         <title>Jekyll 个人静态博客建站及优化</title>
@@ -25,7 +25,7 @@
 
 &lt;p&gt;从零开始搭博客挺好玩，也可以趁此机会学一些前端。按照&lt;a href=&quot;http://beiyuu.com/github-pages/&quot;&gt;教程&lt;/a&gt;一步步走完后，博客初见规模。要做到更好还要考虑性能优化、网站分析和其他功能，有很多可以挖掘的，完全看个人喜好和发挥。当然最重要还是内容。弄完后才知道一篇华丽丽的牛人博客，其实很花心思！相关的建站教程很多，我就结合自己的建站过程整理下思路，有兴趣的也可以直接在 Github 上 clone。&lt;/p&gt;
 
-&lt;h3 id=&quot;section&quot;&gt;&lt;strong&gt;确定环境和架构&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;###&lt;strong&gt;确定环境和架构&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;1. &lt;a href=&quot;https://pages.github.com/&quot;&gt;GitHub Pages&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
 
@@ -105,11 +105,15 @@
 &lt;p&gt;分别建立 repo:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;一级域名用 &lt;code class=&quot;highlighter-rouge&quot;&gt;User &amp;amp; Organization Pages&lt;/code&gt;，直接在 &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; 分支 commit。&lt;/li&gt;
-  &lt;li&gt;二级域名用 &lt;code class=&quot;highlighter-rouge&quot;&gt;Project Pages&lt;/code&gt;，新建并在&lt;code class=&quot;highlighter-rouge&quot;&gt;gh-pages&lt;/code&gt;分支 commit。&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;一级域名用 &lt;code class=&quot;highlighter-rouge&quot;&gt;User &amp;amp; Organization Pages&lt;/code&gt;，直接在 &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; 分支 commit&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;二级域名用 &lt;code class=&quot;highlighter-rouge&quot;&gt;Project Pages&lt;/code&gt;，新建并在&lt;code class=&quot;highlighter-rouge&quot;&gt;gh-pages&lt;/code&gt;分支 commit&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;section-1&quot;&gt;&lt;strong&gt;绑定域名&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;###&lt;strong&gt;绑定域名&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;1. 购买域名&lt;/strong&gt;&lt;/p&gt;
 
@@ -154,7 +158,7 @@
   &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h3 id=&quot;section-2&quot;&gt;&lt;strong&gt;运行起来&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;###&lt;strong&gt;运行起来&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;1. &lt;a href=&quot;http://jekyllrb.com/docs/installation/&quot;&gt;安装 Jekyll&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
 
@@ -200,14 +204,20 @@
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;section-3&quot;&gt;&lt;strong&gt;其他自定义及优化&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;###&lt;strong&gt;其他自定义及优化&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;1. 修改模板&lt;/strong&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;小修小改：背景图片、字体、主题颜色、添加 favicon&lt;/li&gt;
-  &lt;li&gt;添加模块： About、Categories&lt;/li&gt;
-  &lt;li&gt;有用的网站：&lt;a href=&quot;http://blog.javachen.com/2013/08/31/my-jekyll-config.html&quot;&gt;修改大全&lt;/a&gt;； &lt;a href=&quot;https://www.google.com/fonts&quot;&gt;Google 字体&lt;/a&gt;； &lt;a href=&quot;http://fontawesome.dashgame.com/&quot;&gt;Font Awesome 图标字体库&lt;/a&gt;；&lt;a href=&quot;http://www.ifreesite.com/color/color-code-converter.htm&quot;&gt;色码转换器&lt;/a&gt;； &lt;a href=&quot;http://rgb.phpddt.com/&quot;&gt;色彩对照表&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;小修小改：背景图片、字体、主题颜色、添加 favicon&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;添加模块： About、Categories&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;有用的网站：&lt;a href=&quot;http://blog.javachen.com/2013/08/31/my-jekyll-config.html&quot;&gt;修改大全&lt;/a&gt;； &lt;a href=&quot;https://www.google.com/fonts&quot;&gt;Google 字体&lt;/a&gt;； &lt;a href=&quot;http://fontawesome.dashgame.com/&quot;&gt;Font Awesome 图标字体库&lt;/a&gt;；&lt;a href=&quot;http://www.ifreesite.com/color/color-code-converter.htm&quot;&gt;色码转换器&lt;/a&gt;； &lt;a href=&quot;http://rgb.phpddt.com/&quot;&gt;色彩对照表&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;strong&gt;2. 增加功能&lt;/strong&gt;&lt;/p&gt;
@@ -239,7 +249,7 @@
     &lt;p&gt;优化 URL 结构：用 Permalink  改写博客 URL，最好是以标题关键词的形式&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;自定义 404.html：设置 404 错误页面，把失效或者无效的博客地址引导到主页&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;http://cn.yizeng.me/2013/05/26/create-a-custom-jekyll-404-page/&quot;&gt;自定义 404.html&lt;/a&gt;：设置 404 错误页面，把失效或者无效的博客地址引导到主页&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;添加 Sitemap.xml： Sitemap 包含站点结构和博客标题、最近修改时间等内容信息，方便搜索引擎找到&lt;/p&gt;
@@ -265,8 +275,8 @@
         <description>&lt;p&gt;十月中旬校招结束，确定了一桩大事后，放慢了拼命赶路的脚步，列了很多 TODO list，不过还得先从打造一个顺手的工作平台和学习环境开始。
 所谓工欲善其事，必先利其器 &amp;amp; 磨刀不误砍柴工。虽然这些都成了不写论文的借口，但经历了一个多月的打磨，总算初见规模。尽管望尘莫及牛人的体系方法，好歹也是迈出了第一步。&lt;/p&gt;
 
-&lt;h3 id=&quot;section&quot;&gt;&lt;strong&gt;同步系统&lt;/strong&gt;&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;1. 重要资料同步 - &lt;a href=&quot;https://www.dropbox.com/&quot;&gt;Dropbox&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;###&lt;strong&gt;同步系统&lt;/strong&gt;
+&lt;strong&gt;1. 重要资料同步 - &lt;a href=&quot;https://www.dropbox.com/&quot;&gt;Dropbox&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;重要资料的定义：钻研多年的学术成果、源代码；记录每一阶段的文档、文件等重要等级高的内容。&lt;/p&gt;
 
@@ -310,7 +320,7 @@
   &lt;li&gt;&lt;strong&gt;私有的代码&lt;/strong&gt; - BitBucket&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;section-1&quot;&gt;&lt;strong&gt;笔记系统&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;###&lt;strong&gt;笔记系统&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;如何记笔记，一个看似简单的问题。其实是时间安排、记录、整合、运用等等能力的总和，说白了就是如何学习，而学习的习惯贯穿职业生涯、伴随一生。之前我是豪放派，想到就写，要记录就随手拿一张 A4 纸，东一榔头西一棒子，很多草稿都留着，看着乱也没什么大用，扔了又舍不得，总之剪不断理还乱。而好的习惯就能把零碎的知识点串联起来，转换成自己知识体系的一部分。因此在这变与不变之际，痛下决心纠正好。&lt;/p&gt;
 
@@ -384,10 +394,10 @@
     
       <item>
         <title>Windows下安装与使用GCC编译器</title>
-        <description>&lt;h3 id=&quot;gcc&quot;&gt;&lt;strong&gt;什么是GCC?&lt;/strong&gt;&lt;/h3&gt;
-&lt;p&gt;我们在Windows系统下习惯使用诸如Windows Visual Stdio图形化IDE工具来编辑和编译代码，但在Unix/Linux系统下如何编译C++代码呢？答案是GCC(GUN Compiler Collection)。GCC源于一场自由软件计划，最初只能在不同操作系统上处理C语言，经过快速扩张后目前也支持C++/Objective-C/Java/Ada/Pascal/Fortran等多种语言的编译。&lt;/p&gt;
+        <description>&lt;p&gt;###&lt;strong&gt;什么是GCC?&lt;/strong&gt;
+我们在Windows系统下习惯使用诸如Windows Visual Stdio图形化IDE工具来编辑和编译代码，但在Unix/Linux系统下如何编译C++代码呢？答案是GCC(GUN Compiler Collection)。GCC源于一场自由软件计划，最初只能在不同操作系统上处理C语言，经过快速扩张后目前也支持C++/Objective-C/Java/Ada/Pascal/Fortran等多种语言的编译。&lt;/p&gt;
 
-&lt;h3 id=&quot;gcc-1&quot;&gt;&lt;strong&gt;安装GCC&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;###&lt;strong&gt;安装GCC&lt;/strong&gt;&lt;/p&gt;
 &lt;ol&gt;
   &lt;li&gt;下载安装MinGW
 MinGW(Minimalist GNU on Windows)是Windows系统下GNU工具套装，使用MinGW来安装GCC。
@@ -407,7 +417,7 @@ MinGW(Minimalist GNU on Windows)是Windows系统下GNU工具套装，使用MinGW
 如果安装成功，会显示gcc版本号。&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h3 id=&quot;gcc-2&quot;&gt;&lt;strong&gt;使用GCC&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;###&lt;strong&gt;使用GCC&lt;/strong&gt;&lt;/p&gt;
 &lt;ol&gt;
   &lt;li&gt;创建GCC工作目录
 &lt;code&gt;mkdir CPP&lt;/code&gt;&lt;/li&gt;

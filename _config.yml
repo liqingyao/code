@@ -28,3 +28,4 @@ sass:
 # Build settings
 markdown  : kramdown
 permalink : /:title/
+incremental: YES
