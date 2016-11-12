@@ -5,8 +5,6 @@ date:   2016-11-11 22:30:32
 categories: WebNative
 comments: true
 ---
-## 源起
-
 RunLoop 是 iOS 事件机制的核心，在缺少实践的情况下，看了几篇相关博文后感觉还是隔靴搔痒，没有参透。今天刚好有空看了一下 Node.js，发现 Node.js 的 EventLoop 机制和 iOS 的 RunLoop 异曲同工，在理解 EventLoop 之后，一些 iOS 相关的疑惑也触类旁通了。
 
 ## Node.js 特征
