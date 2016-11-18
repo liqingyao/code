@@ -6,8 +6,6 @@ categories: WebNative
 comments: true
 ---
 
-## Samurai-Native 
-
 [Samurai-Native](https://github.com/hackers-painters/samurai-native) 是 Hackers and Painters 出的第二款 Web-Native 框架，相对与其自家的第一款 [BeeFramework](https://github.com/gavinkwoe/BeeFramework) 由 MVC、网络、文件系统等组成的大型框架而言，Samurai-Native 把动态 UI 下发的能力独立出来，用标准的 HTML + CSS + Javascript 技术栈提供一套混合开发的解决方案，相较而言更轻量级些，集成的成本相对低一些，是客户端开发向前端迁移的优秀方案之一。
 
 Samurai-Native 支持标准的 HTML 标签，框架内转化为客户端的 Native 控件，同时也支持在 HTML 模板里直接把 Native 的控件名作为标签使用。标签的 name 属性支持动态数据绑定，布局方面支持标准 CSS 和 Flexbox 布局，事件处理采用高大上的 Signal Handling。
@@ -17,7 +15,7 @@ Samurai-Native 支持标准的 HTML 标签，框架内转化为客户端的 Nati
 ### 整体流程
 
 <div align="center">
-	<img src="{{ site.url }}/images/samurai-workflow.png">
+	<img src="{{ site.url }}/images/samurai-workflow.png" width="496px" height="476px"/>
 </div>
 
 **1. 解析流程**
@@ -44,7 +42,7 @@ Samurai-Native 支持标准的 HTML 标签，框架内转化为客户端的 Nati
 ### 关键类结构
 
 <div align="center">
-	<img src="{{ site.url }}/images/samurai-key-class-structure.png"/>
+	<img src="{{ site.url }}/images/samurai-key-class-structure.png" width="568px" height="438px"/>
 </div>
 
 **1. 祖先类 SamuraiTreeNode**
@@ -72,7 +70,7 @@ Samurai-Native 支持标准的 HTML 标签，框架内转化为客户端的 Nati
 ### 加载资源
 
 <div align="center">
-	<img src="{{ site.url }}/images/samurai-load-timeline.png"/>
+	<img src="{{ site.url }}/images/samurai-load-timeline.png" width="441px" height="295px"/>
 </div>
 
 服务启动后，经过层层调用最终会执行 NSObject 的 TemplateResponder 扩展类的方法，处理本地或者网络资源加
