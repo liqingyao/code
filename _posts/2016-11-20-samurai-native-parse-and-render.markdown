@@ -75,29 +75,29 @@ Samurai-Native 支持标准的 HTML 标签，框架内转化为客户端的 Nati
 
 服务启动后，经过层层调用最终会执行 NSObject 的 TemplateResponder 扩展类的方法，处理本地或者网络资源加
 
-```
+{% highlight ruby %}
 - (void)loadTemplate:(NSString *)urlOrFile type:(NSString *)type
-```
+{% endhighlight %}
 
 上面的方法会对根据模板的资源路径和方式选择对应的加载方法，加载方法里先从 `SamuraiDocument` 父类调用创建一个相应子类的资源对象，然后解析他。比如从服务端下发的模板会调用 `SamuraiTemplate` 的方法
 
-```
+{% highlight ruby %}
 - (void)loadURL:(NSString *)url type:(NSString *)type
-```
+{% endhighlight %}
 
 加载方法里首先调用 `SamuraiDocument` 的方法返回一个 document 资源对象
 
-```
+{% highlight ruby %}
 + (id)resourceWithURL:(NSString *)string type:(NSString *)type
-```
+{% endhighlight %}
 
 接下来会通过标志一些状态来告诉外部当前的状态，之后调用父类 `SamuraiResource` 的 `- (BOOL)parse` 方法根据资源的实际类型调用子类的解析方法，具体的解析流程接下类会分析
 
 完成解析工作后，通过 `SamuraiTemplate` 的
 
-```
+{% highlight ruby %}
 - (void)handleResourceLoaded:(SamuraiResource *)resource
-```
+{% endhighlight %}
 
 方法处理资源加载后续工作，对 document 资源中的嵌套的子资源递归再走一遍上面的流程，直到 `resourceQueue` 中没有待加载的资源后，对 document 调用 `- (BOOL)reflow` 流程，具体的 reflow 过程拆分到下面分析。
 
@@ -111,15 +111,15 @@ Samurai-Native 支持标准的 HTML 标签，框架内转化为客户端的 Nati
 
 接着看流程，加载资源完毕，`SamuraiResource` 调用 `- (BOOL)parse` 方法后，`SamuraiHtmlDocumentWorkflow_Parser` 根据上下文返回一个解析流程对象 `parserFlow`，然后调用他的 `- (BOOL)process` 方法，调用下面方法处理 workflow 中的每个 worklet
 
-```
+{% highlight ruby %}
 - (BOOL)processWithContext:(SamuraiHtmlDocument *)document
-```
+{% endhighlight %}
 
 HTML 解析封装在 `SamuraiHtmlDocumentWorklet_20ParseDomTree` 类中，方法
 
-```
+{% highlight ruby %}
 - (SamuraiHtmlDomNode *)parseHtml:(NSString *)html
-```
+{% endhighlight %}
 
 是解析 HTML 的入口，内部经过 Gumbo 解析器的处理，生成 `GumboOutput` 对象，通过递归访问他的节点构成 domTree 并返回。
 
@@ -133,9 +133,9 @@ HTML 解析封装在 `SamuraiHtmlDocumentWorklet_20ParseDomTree` 类中，方法
 
 在解析方法中，递归调用
 
-```
+{% highlight ruby %}
 - (void)parseChildren:(GumboNode *)node forParentNode:(SamuraiHtmlDomNode *)domNode
-```
+{% endhighlight %}
 
 解析子节点，在这个方法中，对不同类型的 `GumboNode` 分类讨论，比如对 `GUMBO_NODE_ELEMENT` 节点递归解析子节点，并把属性键值对存储在一个词典中；对 `GUMBO_NODE_TEXT` 节点只保存他的内容。
 
@@ -143,15 +143,15 @@ HTML 解析封装在 `SamuraiHtmlDocumentWorklet_20ParseDomTree` 类中，方法
 
 CSS 解析部分接着看上面 timeline 的后半部分，之前说到 `SamuraiHtmlDocumentWorkflow_Parser` 遍历解析 parser 流程的每个 worklet，那么在处理完 `SamuraiHtmlDocumentWorklet_20ParseDomTree` 并得到成功解析的指令后，接下来会调用 `SamuraiHtmlDocumentWorklet_30ParseResource` 的方法解解析 CSS。
 
-```
+{% highlight ruby %}
 - (BOOL)processWithContext:(SamuraiHtmlDocument *)document
-```
+{% endhighlight %}
 
 按照 HTML 解析的思路，CSS 解析也分别对 document、element、text 等类型分类讨论，document 节点是文档的父节点，只用于子节点的遍历，text 节点在 Gumbo 中被认为是用于保存文本内容的，并没有样式等属性，那么只有 element 元素的解析有实际作用。
 
-```
+{% highlight ruby %}
 - (void)parseDomNodeElement:(SamuraiHtmlDomNode *)domNode forDocument:(SamuraiHtmlDocument *)document
-```
+{% endhighlight %}
 
 方法中根据 `domNode.tag` 分别解析样式文件，分类存储到文档的不同对象中，为不同时机的加载做准备
 
@@ -160,18 +160,18 @@ CSS 解析部分接着看上面 timeline 的后半部分，之前说到 `Samurai
 
 样式和 `externalImports` 在遍历的时候便做了解析，分别调用下面函数触发，
 
-```
+{% highlight ruby %}
 - (SamuraiStyleSheet *)parseStyleSheet:(SamuraiHtmlDomNode *)node basePath:(NSString * )basePath
 - (SamuraiDocument *)parseImport:(SamuraiHtmlDomNode *)node basePath:(NSString * )basePath
-```
+{% endhighlight %}
 
 需要注意的是，在这两个解析方法中，按照资源的位置定义加载策略，比如 doucment 和 head 中引入的资源会第一时间预加载，而 body 中的资源会采用延时加载来提高初始化时候的解析速度。
 
 进一步挖掘样式解析调用会发现，在下一层次中，`SamuraiCSSStyleSheet` 调用 `- (BOOL)parse` 来实际解析样式文件。其内部调用 `SamuraiCSSParser` 单例方法
 
-```
+{% highlight ruby %}
 - (KatanaOutput *)parseStylesheet:(NSString *)text
-```
+{% endhighlight %}
 
 把传入的资源内容解析为 Katana 解析器的输出对象 `KatanaOutput`，然后把解析出的规则添加到 `SamuraiCSSRuleSet` 集合对象中，这个对象会和 `SamuraiCSSRuleCollector` 联合选择出 domTree 上每个节点的样式，具体的规则放在渲染部分再分析。
 
@@ -183,9 +183,9 @@ CSS 解析部分接着看上面 timeline 的后半部分，之前说到 `Samurai
 
 - `KatanaSelector` 数据结构中存储着用于匹配规则类型的 `KatanaSelectorMatch`，包括 tag/id/class/pseuduoClass等，在 `SamuraiCSSRuleSet` 中调用
 	
-```
+{% highlight ruby %}
 - (BOOL)findBestRuleSetAndAddWithSelector:(KatanaSelector *)selector ruleData:(SamuraiCSSRule *)ruleData
-```
+{% endhighlight %}
 	
 通过 `selector->match` 可以得到当前 rule 的匹配类型，对 styleSheet 解析得到的每个规则按匹配类型分门别类存放，用于之后分配各 domNode 的样式。
 
