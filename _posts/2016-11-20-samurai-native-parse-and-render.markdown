@@ -42,7 +42,7 @@ Samurai-Native 支持标准的 HTML 标签，框架内转化为客户端的 Nati
 ### 关键类结构
 
 <div align="center">
-	<img src="{{ site.url }}/images/samurai-key-class-structure.png" width="568px" height="438px"/>
+	<img src="{{ site.url }}/images/samurai-key-class-structure.png" width="738px" height="569px"/>
 </div>
 
 **1. 祖先类 SamuraiTreeNode**
@@ -70,7 +70,7 @@ Samurai-Native 支持标准的 HTML 标签，框架内转化为客户端的 Nati
 ### 加载资源
 
 <div align="center">
-	<img src="{{ site.url }}/images/samurai-load-timeline.png" width="441px" height="295px"/>
+	<img src="{{ site.url }}/images/samurai-load-timeline.png" width="661px" height="442px"/>
 </div>
 
 服务启动后，经过层层调用最终会执行 NSObject 的 TemplateResponder 扩展类的方法，处理本地或者网络资源加
