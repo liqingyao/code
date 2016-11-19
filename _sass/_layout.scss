@@ -163,6 +163,8 @@
 // post
 .post {
   .post-header {
+    margin-bottom: 1em;
+
     h1 {
       margin-bottom: 10px;
       // text-transform: uppercase;
@@ -195,6 +197,10 @@
   img {
     max-width: 100%;
     vertical-align: middle;
+    height: auto;
+    display: block;
+    clear: both;
+    margin: auto;
   }
 }
 

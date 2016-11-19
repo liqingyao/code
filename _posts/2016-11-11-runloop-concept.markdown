@@ -19,11 +19,9 @@ RunLoop 是 iOS 事件机制的核心，在缺少实践的情况下，看了几�
 
 一是切换设备，医生每处理完打印操作就切换到下一台设备，为下一个病人打印，直到一圈转完后回到第一个病人那里完成剩余的收钱操作，以此类推。可以发现这个过程中，医生一直处于忙碌状态，并没受到病人掏钱中断的影响。二是切换病人，医生每处理完打印操作就让这个病人到别处去掏钱，等病人掏出钱来再插到原来的队伍中，完成剩余的收钱操作。在这个过程中，医生同样一直忙碌。
 
-![multi-thread-model]({{ site.url }}/images/runloop-asynchronize-model.png)
-<sub>多线程同步模型</sub>
+<img src="{{ site.url }}/images/runloop-asynchronize-model.png" width="500px">
 
-![asynchronize-model]({{ site.url }}/images/runloop-multi-thread-model.png)
-<sub>单线程异步模型</sub>
+<img src="{{ site.url }}/images/runloop-multi-thread-model.png" width="500px">
 
 第一种方式其实就是多线程操作，优点是对单个事件而言，执行的顺序依然是阻塞的、同步的，执行逻辑明确、代码易于调试；缺点是上下文频繁的切换、资源的申请和回收、现场的保护和恢复都是一些额外开销。第二种方式也就是 Node.js 的单线程异步模型，在同样 CPU 效率的情况下，免去了上面的系统开销，但是改变了以往顺序执行的思维，也对调试带来一些麻烦。
 

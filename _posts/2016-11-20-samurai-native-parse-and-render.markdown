@@ -14,9 +14,7 @@ Samurai-Native 支持标准的 HTML 标签，框架内转化为客户端的 Nati
 
 ### 整体流程
 
-<div align="center">
-	<img src="{{ site.url }}/images/samurai-workflow.png" width="496px" height="476px"/>
-</div>
+<img src="{{ site.url }}/images/samurai-workflow.png" width="550px"/>
 
 **1. 解析流程**
 
@@ -41,9 +39,7 @@ Samurai-Native 支持标准的 HTML 标签，框架内转化为客户端的 Nati
 
 ### 关键类结构
 
-<div align="center">
-	<img src="{{ site.url }}/images/samurai-key-class-structure.png" width="738px" height="569px"/>
-</div>
+<img src="{{ site.url }}/images/samurai-key-class-structure.png"/>
 
 **1. 祖先类 SamuraiTreeNode**
 
@@ -69,9 +65,7 @@ Samurai-Native 支持标准的 HTML 标签，框架内转化为客户端的 Nati
 
 ### 加载资源
 
-<div align="center">
-	<img src="{{ site.url }}/images/samurai-load-timeline.png" width="661px" height="442px"/>
-</div>
+<img src="{{ site.url }}/images/samurai-load-timeline.png" width="800px"/>
 
 服务启动后，经过层层调用最终会执行 NSObject 的 TemplateResponder 扩展类的方法，处理本地或者网络资源加
 
@@ -103,9 +97,7 @@ Samurai-Native 支持标准的 HTML 标签，框架内转化为客户端的 Nati
 
 ### 解析 HTML
 
-<div align="center">
-	<img src="{{ site.url }}/images/samurai-parse-timeline.png"/>
-</div>
+<img src="{{ site.url }}/images/samurai-parse-timeline.png"/>
 
 资源的解析部分是整个框架的基础，这部分的重点在于把 HTML 文件解析为 domTree，把 CSS 文件解析为 styleSheet，并且需要具备处理各种来源资源的能力。Samurai-Native 这两部分分别用了 Google 的开源 HTML 解析器 Gumbo Parser 和 CSS 解析器 Katana Parser，两者的特点都是轻量级、外部依赖少、支持标准格式，足够在客户端使用。这里插一句，在对比了 Katana Parser 和 Netsurf 浏览器的内置 LibCSS Parser 之后，其实 Katana 只是解析器，Samurai-Native 自己处理了选择器的功能，性能会比 LibCSS 略逊一筹。
 
