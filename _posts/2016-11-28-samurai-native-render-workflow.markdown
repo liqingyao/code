@@ -130,9 +130,9 @@ renderTree 是渲染过程中的核心，在这一步中会逐步构建出一棵
 - (SamuraiHtmlRenderObject *)renderDomNodeElement:(SamuraiHtmlDomNode *)domNode forContainer:(SamuraiHtmlRenderObject *)container inDocument:(SamuraiHtmlDocument *)document
 {
     SamuraiHtmlRenderStyle * thisStyle = [SamuraiHtmlRenderStyle renderStyle:domNode.computedStyle];
-    SamuraiHtmlRenderObject *   thisObject = nil;
+    SamuraiHtmlRenderObject * thisObject = nil;
 
-    CSSViewHierarchy    viewHierarchy = [thisStyle computeViewHierarchy:CSSViewHierarchy_Inherit];
+    CSSViewHierarchy viewHierarchy = [thisStyle computeViewHierarchy:CSSViewHierarchy_Inherit];
     switch ( viewHierarchy )
     {
         case CSSViewHierarchy_Hidden:
