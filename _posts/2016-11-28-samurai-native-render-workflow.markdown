@@ -172,3 +172,203 @@ renderTree 是渲染过程中的核心，在这一步中会逐步构建出一棵
 通过样式对象计算自己的视图层级，处理继承关系，之后根据视图层级选择创建 `SamuraiHtmlRenderContainer` 对象还是 `SamuraiHtmlRenderElement` 对象。
 
 接下调用 `SamuraiHtmlRenderStyle` 的接口方法计算 renderNode 的每个样式属性，完成后根据 `SamuraiHtmlRenderObejct` 的具体类型创建相应的 `SamuraiHtmlLayoutObject`，并绑定到 `renderNode.layout` 属性上，为下面的布局计算做准备。
+
+## View Workflow
+
+### 生成视图
+
+到这里为止，资源加载流程全部完毕，包括解析和创建 renderTree。Samurai-Native 在资源加载过程中设置了一些内部状态
+
+- 加载中
+- 加载完成
+- 加载失败
+- 取消加载
+
+在不同的时间节点会调用 `SamuraiTemplate` 的 
+
+{% highlight ruby %}
+- (BOOL)changeState:(TemplateState)newState
+{% endhighlight %}
+
+更新状态流转情况，之后随即对资源的响应者调用
+
+{% highlight ruby %}
+- (void)handleTemplate:(SamuraiTemplate *)template
+{% endhighlight %}
+
+实际上，只有状态是加载完成时才有实际的执行内容，也就是根据 renderTree 的结构创建视图
+
+{% highlight ruby %}
+- (void)handleTemplate:(SamuraiTemplate *)template
+{   
+    if ( template.loading )
+    {
+        [self onTemplateLoading];
+    }
+    else if ( template.loaded )
+    {
+        [template.document configureForView:self];
+
+        SamuraiRenderObject * rootRender = template.document.renderTree;
+        
+        if ( rootRender )
+        {
+            if ( self.renderer )
+            {
+                for ( SamuraiRenderObject * childRender in [rootRender.childs reverseObjectEnumerator] )
+                {
+                    [self.renderer appendNode:childRender];
+                    UIView * childView = [childRender createViewWithIdentifier:nil];
+
+                    if ( childView )
+                    {
+                        [self addSubview:childView];
+                    }
+                }
+            }
+            [self onTemplateLoaded];
+        }
+        else
+        {
+            [self onTemplateFailed];
+        }
+    }
+    else if ( template.failed )
+    {
+        [self onTemplateFailed];
+    }
+    else if ( template.cancelled )
+    {
+        [self onTemplateCancelled];
+    }
+}
+{% endhighlight %}
+
+上面的代码从 renderTree 的根节点开始递归调用 `SamuraiHtmlRenderObject` 的方法构造视图树
+
+{% highlight ruby %}
+- (UIView *)createViewWithIdentifier:(NSString *)identifier
+{% endhighlight %}
+
+上面方法的内部首先会根据 `renderNode.viewClass` 的类型创建视图，然后对视图调用 `UIView+Html` 的扩展方法
+
+{% highlight ruby %}
+- (void)html_applyDom:(SamuraiHtmlDomNode *)dom
+{% endhighlight %}
+
+把 domNode 上的事件绑定到视图上，比如点击、滑动、长按等。
+
+最后，根据 `renderNode.zIndex` 对各子节点调整视图层级，
+
+{% highlight ruby %}
+if ( self.childs && [self.childs count] )
+{
+    NSMutableArray * subRenderers = [NSMutableArray nonRetainingArray];
+    
+    [subRenderers addObjectsFromArray:self.childs];
+    [subRenderers sortUsingComparator:^NSComparisonResult(SamuraiHtmlRenderObject * obj1, SamuraiHtmlRenderObject * obj2) {
+        if ( obj1.zIndex < obj2.zIndex )
+        {
+            return NSOrderedAscending;
+        }
+        else if ( obj1.zIndex > obj2.zIndex )
+        {
+            return NSOrderedDescending;
+        }
+        else
+        {
+            return NSOrderedSame;
+        }
+    }];
+    
+    for ( SamuraiHtmlRenderObject * subRenderer in subRenderers )
+    {
+        if ( subRenderer.view )
+        {
+            [subRenderer.view.superview bringSubviewToFront:subRenderer.view];
+        }
+    }
+}
+{% endhighlight %}
+
+具体方法调用可以参考创建视图的 timeline
+
+<img src="{{ site.url }}/images/samurai-view-timeline.png"/>
+
+接下来看一下在视图上应用样式和布局的时机和中间类的流转关系。
+
+<img src="{{ site.url }}/images/samurai-view-class-structure.png"/>
+
+Samurai-Native 采用的方案是对几乎所有的 `UIKit` 类进行扩展，各个视图类分别支持应用样式和应用布局尺寸的方法，而根据视图的类型动态选择相应方法是通过两个工厂类来实现。`UIKit` 的 `Samurai` 扩展类作为基础部件都存放在 `samurai-framework` 的 `samurai-view` 目录下，每个类别都会去重写 `NSObject+Renderer` 的扩展方法，
+
+{% highlight ruby %}
+- (void)applyDom:(SamuraiDomNode *)dom;	
+- (void)applyStyle:(SamuraiRenderStyle *)style;
+- (void)applyFrame:(CGRect)frame;	
+{% endhighlight %}
+
+另一方面，`UIKit` 的 `Html` 扩展类都存放在 `samurai-webcore` 目录下，`html-component` 目录下存放系统控件的扩展类，`html-element` 目录下存放 html 元素的扩展类，这些类都继承自 `UIView`，而且分别重写了 `NSObject+HtmlSupport` 的扩展方法
+
+{% highlight ruby %}
+- (void)html_applyDom:(SamuraiHtmlDomNode *)dom;
+- (void)html_applyStyle:(SamuraiHtmlRenderStyle *)style;
+- (void)html_applyFrame:(CGRect)frame;	
+{% endhighlight %}
+
+比如，对 `UILabel` 调用 `[self.view html_applyStyle:self.style];` 时，首先依次向上调用父类的相应方法直到 `NSObject+HtmlSupport`，而 `NSObject+HtmlSupport` 的 `html_applyStyle` 方法中实际是调用了 `NSObject+Renderer` 的 `applyStyle` 方法，并通过工厂方法作为路由根据实际的视图类去调方法，最后再依次反方向回路，像半个回字形。
+
+{% highlight ruby %}
+- (void)html_applyDom:(SamuraiHtmlDomNode *)dom
+{
+	[self applyDom:dom];
+}
+
+- (void)html_applyStyle:(SamuraiHtmlRenderStyle *)style
+{
+	[self applyStyle:style];
+}
+
+- (void)html_applyFrame:(CGRect)newFrame
+{
+	[self applyFrame:newFrame];
+}
+{% endhighlight %}
+
+`SamuraiHtmlRenderWorklet_20UpdateStyle` 和 `SamuraiHtmlRenderWorklet_30UpdateFrame` 两个 worklet 中分别调用上述方法对视图应用样式和布局，
+
+{% highlight ruby %}
+[renderObject.view html_applyStyle:renderObject.style];
+[renderObject.view html_applyFrame:renderObject.layout.frame];
+{% endhighlight %}
+
+这两个 worklet 又被分别封装在 `SamuraiHtmlRenderObejct` 的方法中，
+
+{% highlight ruby %}
+- (void)relayout
+{
+	if ( nil == _relayoutFlow )
+	{
+		_relayoutFlow = [SamuraiHtmlRenderWorkflow_UpdateFrame workflowWithContext:self];
+	}
+	[_relayoutFlow process];
+}
+
+- (void)restyle
+{
+	if ( nil == _restyleFlow )
+	{
+		_restyleFlow = [SamuraiHtmlRenderWorkflow_UpdateStyle workflowWithContext:self];
+	}
+	[_restyleFlow process];
+}
+{% endhighlight %}
+
+查看 `- (void)restyle` 的主调方法，主要在几种情况下会触发对视图更新样式
+
+- UICollectionView 和 UITableView 更新 cell 或获取 cell 信息时触发
+- UIView 或 UIViewController 页面初始化或重新加载时触发
+
+查看 `- (void)relayout` 的主调方法，主要在几种情况下会触发对视图更新布局
+
+- UICollectionView 和 UITableView 显示前触发
+- UIView 或 UIViewController 页面初始化或重新加载时触发
