@@ -177,7 +177,7 @@ renderTree 是渲染过程中的核心，在这一步中会逐步构建出一棵
 
 ### 生成视图
 
-到这里为止，资源加载流程全部完毕，包括解析和创建 renderTree。Samurai-Native 在资源加载过程中设置了一些内部状态
+到这里为止资源加载流程全部完毕，包括解析和创建 renderTree。Samurai-Native 在资源加载过程中设置了一些内部状态
 
 - 加载中
 - 加载完成
@@ -205,20 +205,19 @@ renderTree 是渲染过程中的核心，在这一步中会逐步构建出一棵
         [self onTemplateLoading];
     } else if ( template.loaded ) {
         SamuraiRenderObject * rootRender = template.document.renderTree;
-	    if ( self.renderer ) {
-	        for ( SamuraiRenderObject * childRender in [rootRender.childs reverseObjectEnumerator] )
-	        {
-	            [self.renderer appendNode:childRender];
-	            UIView * childView = [childRender createViewWithIdentifier:nil];
-	            [self addSubview:childView];
-	        }
+        if ( self.renderer ) {
+            for ( SamuraiRenderObject * childRender in [rootRender.childs reverseObjectEnumerator] ) {
+                [self.renderer appendNode:childRender];
+                UIView * childView = [childRender createViewWithIdentifier:nil];
+                [self addSubview:childView];
+            }
             [self onTemplateLoaded];
         } else {
             [self onTemplateFailed];
         }
     } else if ( template.failed ) {
         [self onTemplateFailed];
-    }  else if ( template.cancelled ) {
+    } else if ( template.cancelled ) {
         [self onTemplateCancelled];
     }
 }
