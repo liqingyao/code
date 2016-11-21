@@ -201,44 +201,24 @@ renderTree 是渲染过程中的核心，在这一步中会逐步构建出一棵
 {% highlight ruby %}
 - (void)handleTemplate:(SamuraiTemplate *)template
 {   
-    if ( template.loading )
-    {
+    if ( template.loading ) {
         [self onTemplateLoading];
-    }
-    else if ( template.loaded )
-    {
-        [template.document configureForView:self];
-
+    } else if ( template.loaded ) {
         SamuraiRenderObject * rootRender = template.document.renderTree;
-        
-        if ( rootRender )
-        {
-            if ( self.renderer )
-            {
-                for ( SamuraiRenderObject * childRender in [rootRender.childs reverseObjectEnumerator] )
-                {
-                    [self.renderer appendNode:childRender];
-                    UIView * childView = [childRender createViewWithIdentifier:nil];
-
-                    if ( childView )
-                    {
-                        [self addSubview:childView];
-                    }
-                }
-            }
+	    if ( self.renderer ) {
+	        for ( SamuraiRenderObject * childRender in [rootRender.childs reverseObjectEnumerator] )
+	        {
+	            [self.renderer appendNode:childRender];
+	            UIView * childView = [childRender createViewWithIdentifier:nil];
+	            [self addSubview:childView];
+	        }
             [self onTemplateLoaded];
-        }
-        else
-        {
+        } else {
             [self onTemplateFailed];
         }
-    }
-    else if ( template.failed )
-    {
+    } else if ( template.failed ) {
         [self onTemplateFailed];
-    }
-    else if ( template.cancelled )
-    {
+    }  else if ( template.cancelled ) {
         [self onTemplateCancelled];
     }
 }
@@ -268,17 +248,11 @@ if ( self.childs && [self.childs count] )
     [subRenderers addObjectsFromArray:self.childs];
     [subRenderers sortUsingComparator:^NSComparisonResult(SamuraiHtmlRenderObject * obj1, SamuraiHtmlRenderObject * obj2) {
         if ( obj1.zIndex < obj2.zIndex )
-        {
             return NSOrderedAscending;
-        }
         else if ( obj1.zIndex > obj2.zIndex )
-        {
             return NSOrderedDescending;
-        }
         else
-        {
             return NSOrderedSame;
-        }
     }];
     
     for ( SamuraiHtmlRenderObject * subRenderer in subRenderers )
@@ -320,17 +294,17 @@ Samurai-Native 采用的方案是对几乎所有的 `UIKit` 类进行扩展，�
 {% highlight ruby %}
 - (void)html_applyDom:(SamuraiHtmlDomNode *)dom
 {
-	[self applyDom:dom];
+    [self applyDom:dom];
 }
 
 - (void)html_applyStyle:(SamuraiHtmlRenderStyle *)style
 {
-	[self applyStyle:style];
+    [self applyStyle:style];
 }
 
 - (void)html_applyFrame:(CGRect)newFrame
 {
-	[self applyFrame:newFrame];
+    [self applyFrame:newFrame];
 }
 {% endhighlight %}
 
@@ -346,20 +320,20 @@ Samurai-Native 采用的方案是对几乎所有的 `UIKit` 类进行扩展，�
 {% highlight ruby %}
 - (void)relayout
 {
-	if ( nil == _relayoutFlow )
-	{
-		_relayoutFlow = [SamuraiHtmlRenderWorkflow_UpdateFrame workflowWithContext:self];
-	}
-	[_relayoutFlow process];
+    if ( nil == _relayoutFlow )
+    {
+        _relayoutFlow = [SamuraiHtmlRenderWorkflow_UpdateFrame workflowWithContext:self];
+    }
+    [_relayoutFlow process];
 }
 
 - (void)restyle
 {
-	if ( nil == _restyleFlow )
-	{
-		_restyleFlow = [SamuraiHtmlRenderWorkflow_UpdateStyle workflowWithContext:self];
-	}
-	[_restyleFlow process];
+    if ( nil == _restyleFlow )
+    {
+        _restyleFlow = [SamuraiHtmlRenderWorkflow_UpdateStyle workflowWithContext:self];
+    }
+    [_restyleFlow process];
 }
 {% endhighlight %}
 
