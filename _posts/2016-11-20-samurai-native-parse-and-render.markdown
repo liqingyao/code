@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Samurai-Native 解析及渲染原理
+title:  Samurai-Native 模板及样式解析原理
 date:   2016-11-20 16:22:34
 categories: WebNative
 comments: true
@@ -10,7 +10,7 @@ comments: true
 
 Samurai-Native 支持标准的 HTML 标签，框架内转化为客户端的 Native 控件，同时也支持在 HTML 模板里直接把 Native 的控件名作为标签使用。标签的 name 属性支持动态数据绑定，布局方面支持标准 CSS 和 Flexbox 布局，事件处理采用高大上的 Signal Handling。
 
-这篇文章主要撸了 Samurai-Native 框架解析及渲染部分的实现流程和原理，事件处理方面的机制暂时没有涉及。
+这篇文章主要撸了 Samurai-Native 框架中模板解析和样式解析的实现流程和原理，渲染和布局部分会在一下篇博客中具体分析。
 
 ### 整体流程
 
@@ -58,7 +58,6 @@ Samurai-Native 支持标准的 HTML 标签，框架内转化为客户端的 Nati
 - SamuraiDomNode 的子类 SamuraiHtmlDomNode 是框架中实际用到的 domTree 类型，持有用于实际计算样式的 computedStyle 样式和 shadowHost。
 - SamuraiDomNode 的另一个子类 SamuraiRenderObject 弱引用他的 domNode，并持有一个 SamuraiRenderStyle 对象和一个用于实际展示的视图，他的子类 SamuraiHtmlRenderObject 是实际使用的类。
  
-
 接下来看一下流程对应的关键调用栈。
 
 ## Parse Workflow
@@ -181,4 +180,49 @@ CSS 解析部分接着看上面 timeline 的后半部分，之前说到 `Samurai
 	
 通过 `selector->match` 可以得到当前 rule 的匹配类型，对 styleSheet 解析得到的每个规则按匹配类型分门别类存放，用于之后分配各 domNode 的样式。
 
-Refolw 和渲染分析放在下一篇博客中。
+## Reflow Workflow
+
+接着之前的流程，对 document 调用 `- (BOOL)parse` 成功返回后，会紧接着调用 document 的 `- (BOOL)reflow` 方法。Reflow 部分的工作就是整合之前加载的各路资源，一是合并样式表，二是合并 domTree。
+
+### 合并 StyleSheet
+
+经过资源加载，样式表可以分成四类：
+
+- 预置在本地的默认样式表 `html.css` 和 `html+native.css`，存储在 `[SamuraiHtmlUserAgent sharedInstance].defaultStyleSheets` 里。`html.css` 里定义了标准 HTML 标签的基础样式，`html+native.css` 里定义了桥接的原生控件的基础样式
+- 定义在模板里的样式表，也就是在 CSS 解析中我们拿到的 styleTree
+- 模板中通过外部链接形式导入的样式表，在 CSS 解析时遍历 domTree 的过程中我们把遇到的外部样式表保存在 `document.externalStylesheets` 
+- `document.externalImports` 里链接的样式表
+
+在 `SamuraiHtmlDocumentWorklet_40MergeStyleTree` 的 
+
+{% highlight ruby %}
+- (BOOL)processWithContext:(SamuraiHtmlDocument *)document
+{% endhighlight %}
+
+方法里，解析完的第一类和第三类 styleSheet 调用 `SamuraiCSSStyleSheet` 的
+
+{% highlight ruby %}
+- (void)merge:(SamuraiCSSStyleSheet *)styleSheet
+{% endhighlight %}
+
+方法合并到 document 的 styleTree 中，这里的合并方法封装了 `SamuraiCSSRuleSet` 的方法，
+
+{% highlight ruby %}
+- (void)addStyleRules:(KatanaArray *)childRules
+{% endhighlight %}
+
+把规则按解析出的匹配规则分类放到 styleTree 的各规则集合中。
+
+### 合并 DomTree
+
+在合并 styleSheet 时我们遇到的 `document.externalImports` 文件是自定义组件通过 
+
+{% highlight ruby %}
+<link rel="import" href="component.html" >
+{% endhighlight %}
+
+的形式链接进 document 的，`component.html` 里封装了组件的模板、样式和脚本，对外部来说就是黑盒调用，也就是通常说的 Shadow DOM。
+
+合并 domTree 的过程就是把 Shadow DOM 合并进来，在 `SamuraiHtmlDocumentWorklet_50MergeDomTree` 类中，把`document.externalImports` 里每个资源文件的根节点作为 `domNode.shadowRoot` 绑定到 domTree 的对应节点上。
+
+渲染和布局的解析请移步下一篇博客。
