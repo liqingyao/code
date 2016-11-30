@@ -21,8 +21,8 @@ comments: true
 {% highlight ruby %}
 - (BOOL)parse
 {
-	_output = [[SamuraiCSSParser sharedInstance] parseStylesheet:self.resContent];
-	[self.ruleSet addStyleRules:&_output->stylesheet->rules];
+    _output = [[SamuraiCSSParser sharedInstance] parseStylesheet:self.resContent];
+    [self.ruleSet addStyleRules:&_output->stylesheet->rules];
 }
 {% endhighlight %}
 
@@ -31,18 +31,16 @@ comments: true
 {% highlight ruby %}
 - (void)addStyleRule:(KatanaStyleRule *)rule
 {
-	for ( unsigned int i = 0; i < rule->selectors->length; i++ )
-	{
-		KatanaSelector * selector = rule->selectors->data[i];
-
-		SamuraiCSSRule * data = [[SamuraiCSSRule alloc] initWithRule:rule selector:selector position:_ruleSeed++];
-
-		BOOL found = [self findBestRuleSetAndAddWithSelector:selector ruleData:data];
-		if ( NO == found )
-		{
-			[self.privateUniversalRules addObject:data];
-		}
-	}
+    for ( unsigned int i = 0; i < rule->selectors->length; i++ )
+    {
+        KatanaSelector * selector = rule->selectors->data[i];
+        SamuraiCSSRule * data = [[SamuraiCSSRule alloc] initWithRule:rule selector:selector position:_ruleSeed++];
+        BOOL found = [self findBestRuleSetAndAddWithSelector:selector ruleData:data];
+        if ( NO == found )
+        {
+            [self.privateUniversalRules addObject:data];
+        }
+    }
 }
 {% endhighlight %}
 
