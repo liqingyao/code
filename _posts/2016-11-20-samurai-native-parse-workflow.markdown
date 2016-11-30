@@ -221,4 +221,4 @@ CSS 解析部分接着看上面 timeline 的后半部分，之前说到 `Samurai
 
 合并 domTree 的过程就是把 Shadow DOM 合并进来，在 `SamuraiHtmlDocumentWorklet_50MergeDomTree` 类中，把`document.externalImports` 里每个资源文件的根节点作为 `domNode.shadowRoot` 绑定到 domTree 的对应节点上。
 
-到这里，模板解析、样式解析以及 reflow 的 workflow 已经完成，渲染和布局的解析请移步下一篇博客。
+到这里，模板解析、样式解析以及 reflow 的 workflow 已经完成，渲染和布局的解析请移步下一篇博客 [Samurai-Native 渲染及布局原理](http://code.liqingyao.com/samurai-native-render-workflow/)。
