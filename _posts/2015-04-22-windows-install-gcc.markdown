@@ -43,13 +43,6 @@ int main() {
 }
 {% endhighlight %}
 
-<!-- <pre class="theme:github width-set:true width:450 lang:default decode:true " >include &lt;stdio.h&gt;
-include &lt;stdlib.h&gt;
-int main() {
-    printf("Hello World\n");
-    return(0);
-}</pre> -->
-
 5. 使用GCC编译main.c，输出HelloWorld可执行文件
 <code>gcc main.c -o HelloWorld</code>
 6. 此时会报错“缺少libgcc_s_sjlj-1.dll文件”
