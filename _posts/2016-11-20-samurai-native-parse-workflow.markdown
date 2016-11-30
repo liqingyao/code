@@ -6,11 +6,11 @@ categories: WebNative
 comments: true
 ---
 
-[Samurai-Native](https://github.com/hackers-painters/samurai-native) 是 Hackers and Painters 出的第二款 Web-Native 框架，相对与其自家的第一款 [BeeFramework](https://github.com/gavinkwoe/BeeFramework) 由 MVC、网络、文件系统等组成的大型框架而言，Samurai-Native 把动态 UI 下发的能力独立出来，用标准的 HTML + CSS + Javascript 技术栈提供一套混合开发的解决方案，相较而言更轻量级些，集成的成本相对低一些，是客户端开发向前端迁移的优秀方案之一。
+[Samurai-Native](https://github.com/hackers-painters/samurai-native) 是 Hackers and Painters 出的第二款 Web-Native 框架，相对与其自家的第一款 [BeeFramework](https://github.com/gavinkwoe/BeeFramework) 由 MVC、网络、文件系统等组成的大型框架而言，Samurai-Native 把动态 UI 下发的能力独立出来，用标准的 HTML + CSS + Javascript 技术栈提供一套混合开发的解决方案，相较而言更轻量、集成的成更低，是客户端开发向前端迁移的优秀方案之一。
 
-Samurai-Native 支持标准的 HTML 标签，框架内转化为客户端的 Native 控件，同时也支持在 HTML 模板里直接把 Native 的控件名作为标签使用。标签的 name 属性支持动态数据绑定，布局方面支持标准 CSS 和 Flexbox 布局，事件处理采用高大上的 Signal Handling。
+Samurai-Native 支持标准的 HTML 标签，框架内转化为客户端的 Native 控件，同时也支持在 HTML 模板里直接把 Native 的控件名作为标签使用。标签的 name 属性支持动态数据绑定，布局方面支持标准 CSS 和 Flexbox 布局，事件处理采用高大上的 Signal Handling 机制。
 
-这篇文章主要撸了 Samurai-Native 框架中模板解析和样式解析的实现流程和原理，渲染和布局部分会在一下篇博客中具体分析。
+这篇文章主要撸了一遍 Samurai-Native 框架中模板解析和样式解析的实现流程和原理，渲染和布局部分会在一下篇博客中具体分析。
 
 ### 整体流程
 
@@ -24,13 +24,13 @@ Samurai-Native 支持标准的 HTML 标签，框架内转化为客户端的 Nati
 
 **2. Reflow 流程**
 
-- document 中样式有关对象合并到 styleSheet 对象中，以键值对形式按不同的类型（tag/id/class）保存在词典里
-- 处理 document 中外部导入的 HTML，把构成的 shadowTree 挂靠在相应 domTree 的节点上
+- document 中样式有关对象合并到 styleSheet 对象中，以键值对形式按不同的匹配类型（tag / id / class）保存在词典里
+- 处理 document 中外部导入的 HTML，把根节点作为 shadowRoot 绑定到相应的 domTree 节点上
 
 **3. 渲染流程**
 
 - 遍历 domTree 上每个节点（包括 shadowRoot），对不同来源的样式按照优先级依次添加到节点的 computedStyle 上，包括处理节点的继承样式，此时 的 computedStyle 还是以键值对形式存储样式，而且存的值仍然是字符串形式
-- 从 domTree 映射到 renderTree，这步中根据节点的类型（document/element/text）和节点的层次（tree/branch/leaf/hidden）生成相应的渲染对象，同时计算 computedStyle 中存储的值或者转换为 OC 对象（比如 UIColor）
+- 从 domTree 映射到 renderTree，这步中根据节点的类型（document / element / text）和节点的层次（tree / branch / leaf/ hidden）生成相应的渲染对象，同时计算 computedStyle 中存储的值或者转换为 OC 对象
 
 **4. 布局流程**
 
@@ -43,20 +43,20 @@ Samurai-Native 支持标准的 HTML 标签，框架内转化为客户端的 Nati
 
 **1. 祖先类 SamuraiTreeNode**
 
-- Samurai-Native 框架中与 HTML/CSS/Render/Layout 相关类放在 samurai-webcore 文件目录下，其相关基础类放在 samurai-framework 文件目录下。
-- SamuraiTreeNode 作为基石，放在 samurai-webcore 目录下，主要定义了树形结构创建及修改相关的一些方法。
+- Samurai-Native 框架中与 HTML / CSS / Render / Layout 相关类放在 `samurai-webcore` 文件目录下，其相关基础类放在 `samurai-framework` 文件目录下。
+- `SamuraiTreeNode` 作为基石，放在 `samurai-webcore` 目录下，主要定义了树形结构创建及修改相关的一些方法。
 
 **2. 资源类**
 
-- 基类 SamuraiResource 继承自 SamuraiTreeNode，负责记录资源文件路径、内容等信息并提供一些初始化方法，同时也是 SamuraiDocument、SamuraiStyleSheet 和 SamuraiScript的父类，这三个类分别对应模板、样式表和脚本解析后的对象。
-- SamuraiDocument 会持有一棵从 HTML 映射来的 domTree，一个树状样式表 styleTree、一棵渲染树 renderTree，以及保存着外部导入文件 externalImports、externalScripts、externalStyleSheets。
-- Samurai 解析实际使用的是 SamuraiHtmlDocument、SamuraiCSSStyleSheet 两个类，SamuraiHtmlDocument、SamuraiCSSStyleSheet 持有样式规则集 SamuraiCSSRuleSet 对象和规则选择器 SamuraiCSSRuleCollector 对象。
+- 基类 `SamuraiResource` 继承自 `SamuraiTreeNode`，负责记录资源文件路径、内容等信息并提供一些初始化方法，同时也是 `SamuraiDocument`、`SamuraiStyleSheet` 和 `SamuraiScript` 的父类，这三个类分别对应模板、样式表和脚本解析后的对象。
+- `SamuraiDocument` 会持有一棵从 HTML 映射来的 domTree，一个树状样式表 styleTree、一棵渲染树 renderTree，以及保存着外部导入文件 `externalImports`、`externalScripts`、`externalStyleSheets`。
+- Samurai 解析实际使用的是 `SamuraiHtmlDocument`、`SamuraiCSSStyleSheet` 两个类，`SamuraiHtmlDocument`、`SamuraiCSSStyleSheet` 持有样式规则集 `SamuraiCSSRuleSet` 对象和规则选择器 `SamuraiCSSRuleCollector` 对象。
 
 **3. 内部树类**
 
-- SamuraiDomNode 和 SamuraiRenderObject 直接继承自 SamuraiTreeNode，分别对应 Document 里的 domTree 和 renderTree 树结构，前者记录节点的类型、属性、标签，还会弱引用一个 SamuraiDocument 对象，用来在任意时候获取自身 document 的一些信息。
-- SamuraiDomNode 的子类 SamuraiHtmlDomNode 是框架中实际用到的 domTree 类型，持有用于实际计算样式的 computedStyle 样式和 shadowHost。
-- SamuraiDomNode 的另一个子类 SamuraiRenderObject 弱引用他的 domNode，并持有一个 SamuraiRenderStyle 对象和一个用于实际展示的视图，他的子类 SamuraiHtmlRenderObject 是实际使用的类。
+- `SamuraiDomNode` 和 `SamuraiRenderObject` 直接继承自 `SamuraiTreeNode`，分别对应 document 里的 domTree 和 renderTree 树结构，前者记录节点的类型、属性、标签，还会弱引用一个 `SamuraiDocument` 对象，用来在任意时候获取自身 document 的一些信息。
+- `SamuraiDomNode` 的子类 `SamuraiHtmlDomNode` 是框架中实际用到的 domTree 类型，持有用于实际计算样式的 computedStyle 样式和 shadowHost。
+- `SamuraiDomNode` 的另一个子类 `SamuraiRenderObject` 弱引用他的 domNode，并持有一个 `SamuraiRenderStyle` 对象和一个用于实际展示的视图，他的子类 `SamuraiHtmlRenderObject` 是实际使用的类。
  
 接下来看一下流程对应的关键调用栈。
 
@@ -98,7 +98,7 @@ Samurai-Native 支持标准的 HTML 标签，框架内转化为客户端的 Nati
 
 <img src="{{ site.url }}/images/samurai-parse-timeline.png"/>
 
-资源的解析部分是整个框架的基础，这部分的重点在于把 HTML 文件解析为 domTree，把 CSS 文件解析为 styleSheet，并且需要具备处理各种来源资源的能力。Samurai-Native 这两部分分别用了 Google 的开源 HTML 解析器 Gumbo Parser 和 CSS 解析器 Katana Parser，两者的特点都是轻量级、外部依赖少、支持标准格式，足够在客户端使用。这里插一句，在对比了 Katana Parser 和 Netsurf 浏览器的内置 LibCSS Parser 之后，其实 Katana 只是解析器，Samurai-Native 自己处理了选择器的功能，性能会比 LibCSS 略逊一筹。
+资源的解析部分是整个框架的基础，这部分的重点在于把 HTML 文件解析为 domTree，把 CSS 文件解析为 styleSheet，并且需要具备处理各种来源资源的能力。Samurai-Native 这两部分分别用了 [Google 的开源 HTML 解析器 Gumbo Parser](https://github.com/google/gumbo-parser) 和 [CSS 解析器 Katana Parser](https://github.com/hackers-painters/katana-parser)，两者的特点都是轻量级、外部依赖少、支持标准格式，足够在客户端使用。这里插一句，在对比了 Katana Parser 和 [NetSurf 浏览器的内置 LibCSS Parser](http://www.netsurf-browser.org/projects/libcss/) 之后，发现其实 Katana 只是解析器，Samurai-Native 自己处理了选择器的功能，性能会比 LibCSS 略逊一筹。
 
 接着看流程，加载资源完毕，`SamuraiResource` 调用 `- (BOOL)parse` 方法后，`SamuraiHtmlDocumentWorkflow_Parser` 根据上下文返回一个解析流程对象 `parserFlow`，然后调用他的 `- (BOOL)process` 方法，调用下面方法处理 workflow 中的每个 worklet
 
@@ -117,9 +117,7 @@ HTML 解析封装在 `SamuraiHtmlDocumentWorklet_20ParseDomTree` 类中，方法
 简单了解一下 `GumboOutput` 这个对象，
 
 - `GumboOutput` 是文档解析后的输出对象，文档中的所有解析信息都用过这个数据结构间接访问，可以通过 `GumboNode` 类型的 `output->document` 访问文档对象 
-
 - `GumboNode` 节点对象可以访问自己的类型，文档、元素、文本类型分别对应有一个 `GumboDocument`、 `GumboElement` 和 `GumboText` 对象，还可以访问自己的父节点和在兄弟节点中的位置
-
 - `GumboElement` 元素节点包括指向自己子节点的 `GumboVector` 对象，标签名 `GumboTag` 和 属性 `GumboVector` 等等
 
 在解析方法中，递归调用
@@ -169,9 +167,7 @@ CSS 解析部分接着看上面 timeline 的后半部分，之前说到 `Samurai
 简单了解一下 `Katana` 的数据结构
 
 - `KatanaOutput` 中的 `KatanaStyleSheet` 保存解析得到的样式表，内部由规则集组成
-
 - 每一条规则 `KatanaRule` 包含名字和规则类型（style/media/value/selector/declaration）`KatanaRuleType`，不同类型的规则有对应的数据结构去细化。我们这里主要看对 styleSheet 的解析。
-
 - `KatanaSelector` 数据结构中存储着用于匹配规则类型的 `KatanaSelectorMatch`，包括 tag/id/class/pseuduoClass等，在 `SamuraiCSSRuleSet` 中调用
 	
 {% highlight ruby %}
@@ -225,4 +221,4 @@ CSS 解析部分接着看上面 timeline 的后半部分，之前说到 `Samurai
 
 合并 domTree 的过程就是把 Shadow DOM 合并进来，在 `SamuraiHtmlDocumentWorklet_50MergeDomTree` 类中，把`document.externalImports` 里每个资源文件的根节点作为 `domNode.shadowRoot` 绑定到 domTree 的对应节点上。
 
-渲染和布局的解析请移步下一篇博客。
+到这里，模板解析、样式解析以及 reflow 的 workflow 已经完成，渲染和布局的解析请移步下一篇博客。
